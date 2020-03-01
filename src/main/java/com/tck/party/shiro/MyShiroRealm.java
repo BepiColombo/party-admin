@@ -14,12 +14,11 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 
-@Service
 public class MyShiroRealm extends AuthorizingRealm {
 
     @Autowired
@@ -43,16 +42,15 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection token) {
         String username = JWTUtil.getUsername(token.toString());
-
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
-//        // 获取用户角色集
-//        Set<String> roleSet = userService.getUserRoles(username);
-//        simpleAuthorizationInfo.setRoles(roleSet);
-//
-//        // 获取用户权限集
-//        Set<String> permissionSet = userService.getUserPermissions(username);
-//        simpleAuthorizationInfo.setStringPermissions(permissionSet);
+        // 获取用户角色集
+        Set<String> roleSet = userService.findUserRoles(username);
+        simpleAuthorizationInfo.setRoles(roleSet);
+
+        // 获取用户权限集
+        Set<String> permissionSet = userService.findUserPermissions(username);
+        simpleAuthorizationInfo.setStringPermissions(permissionSet);
         return simpleAuthorizationInfo;
     }
 

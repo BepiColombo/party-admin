@@ -14,7 +14,7 @@ public class CodeMsg {
     private String msg;
 
     //通用的错误码
-    public static CodeMsg SUCCESS = new CodeMsg(0, "success");
+    public static CodeMsg SUCCESS = new CodeMsg(200, "success");
     public static CodeMsg UNAUTHORIZED = new CodeMsg(401, "unauthorized");
     public static CodeMsg BAD_REQUEST = new CodeMsg(500000, "bad_request");
     public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务端异常");

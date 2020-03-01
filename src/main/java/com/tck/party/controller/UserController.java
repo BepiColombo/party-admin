@@ -6,6 +6,10 @@ import com.tck.party.entity.User;
 import com.tck.party.service.impl.UserServiceImpl;
 import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.utils.ResponseUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +27,10 @@ public class UserController extends BaseController {
      *
      * @return
      */
+//    @RequiresRoles("super_administrator")
+    @RequiresPermissions("user:view")
     @GetMapping(value = "getAllUser")
     public ResponseUtils<List<User>> findAllUser() {
-//        Subject subject = SecurityUtils.getSubject();
-//        if (!subject.isAuthenticated()) {
-//            return new ResponseBean(CodeMsg.UNAUTHORIZED.getCode(), "未登录");
-//        }
         List<User> users = userService.findAllUser();
         return new ResponseUtils(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg(), users);
     }

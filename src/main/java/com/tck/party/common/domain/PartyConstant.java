@@ -11,5 +11,5 @@ public class PartyConstant {
     public static final String ANNO_URL = "/login,/logout/**";
 
     // 存储在线用户的 zset前缀
-    public static final String ACTIVE_USERS_ZSET_PREFIX = "febs.user.active";
+    public static final String ACTIVE_USERS_ZSET_PREFIX = "party.user.active";
 }
