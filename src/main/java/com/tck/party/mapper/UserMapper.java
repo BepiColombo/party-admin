@@ -1,14 +1,9 @@
 package com.tck.party.mapper;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,12 +17,22 @@ public interface UserMapper {
     @Select("select * from p_user")
     List<User> findUsers();
 
+
+    /**
+     * 获取用户详情
+     *
+     * @return
+     */
+    @Select("select u.user_id as userId,u.username,u.name,u.sex,u.birthday,u.age,u.idcard,u.phone,u.address from p_user u where username = #{username}")
+    User findUserDetail(String username);
+
+
     /**
      * 根据用户名查找用户
      *
      * @return
      */
-    @Select("select * from p_user where username = #{username}")
+    @Select("select * from p_user  where username = #{username}")
     User findUserByUserName(String username);
 
     /**
