@@ -16,17 +16,18 @@ public interface UserService {
      */
     PageInfo<User> findUsers(Integer pageNum, Integer pageSize);
 
-    /**
-     * 添加用户
-     *
-     * @return
-     */
-    int addUser(User user);
 
     /**
      * 通过用户名获取用户
      */
     User findUserByUserName(String username);
+
+    /**
+     * 获取用户详情
+     * @param username
+     * @return
+     */
+    User findUserDetail(String username);
 
     /**
      * 通过用户名获取用户角色集
@@ -41,4 +42,11 @@ public interface UserService {
      * @return
      */
     Set<String> findUserPermissions(String username);
+
+    /**
+     * 添加用户
+     *
+     * @return
+     */
+    int addUser(User user);
 }

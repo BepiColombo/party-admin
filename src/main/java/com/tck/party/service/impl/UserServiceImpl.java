@@ -8,6 +8,7 @@ import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.mapper.UserMapper;
 import com.tck.party.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
+    @Autowired
     UserMapper userMapper;
 
     /**
@@ -33,19 +34,7 @@ public class UserServiceImpl implements UserService {
         return pageInfo;
     }
 
-    ;
-
-    /**
-     * 添加用户
-     *
-     * @return
-     */
-    public int addUser(User user) {
-        int res = userMapper.insertUser(user);
-        return res;
-    }
-
-    /**
+      /**
      * 通过用户名获取用户信息
      *
      * @return
@@ -54,6 +43,17 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.findUserByUserName(username);
         return user;
     }
+
+    /**
+     * 获取用户详情
+     *
+     * @return
+     */
+    public User findUserDetail(String username) {
+        User user = userMapper.findUserDetail(username);
+        return user;
+    }
+
 
     /**
      * 根据用户名获取用户角色集
@@ -76,4 +76,15 @@ public class UserServiceImpl implements UserService {
         List<Menu> menus = userMapper.findUserPermissions(username);
         return menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
     }
+
+    /**
+     * 添加用户
+     *
+     * @return
+     */
+    public int addUser(User user) {
+        int res = userMapper.insertUser(user);
+        return res;
+    }
+
 }

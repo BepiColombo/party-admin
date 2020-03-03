@@ -61,7 +61,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader(TOKEN);
         JWTToken jwtToken = new JWTToken(PartyUtils.decryptToken(token));
-//        System.out.println(token);
         try {
             getSubject(request, response).login(jwtToken);
             return true;
@@ -97,7 +96,11 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         httpResponse.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = httpResponse.getWriter()) {
             Map<String, Object> map = new HashMap<>();
-            map.put("code", CodeMsg.UNAUTHORIZED.getCode());
+            if (message == CodeMsg.TOKEN_EXPIRED.getMsg()) {
+                map.put("code", CodeMsg.TOKEN_EXPIRED.getCode());
+            } else if (message == CodeMsg.TOKEN_INVALID.getMsg()) {
+                map.put("code", CodeMsg.TOKEN_INVALID.getCode());
+            }
             map.put("message", message);
             JSONObject resJson = new JSONObject(map);
             String responseJsonString = resJson.toJSONString();

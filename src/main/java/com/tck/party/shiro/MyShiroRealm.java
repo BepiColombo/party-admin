@@ -2,6 +2,7 @@ package com.tck.party.shiro;
 
 import com.tck.party.common.domain.PartyConstant;
 import com.tck.party.common.service.RedisService;
+import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.utils.HttpContextUtil;
 import com.tck.party.common.utils.IPUtil;
 import com.tck.party.entity.User;
@@ -78,20 +79,20 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         // 如果找不到，说明已经失效
         if (StringUtils.isBlank(encryptTokenInRedis) || encryptTokenInRedis == null) {
-            throw new AuthenticationException("token is expired");
+            throw new AuthenticationException(CodeMsg.TOKEN_EXPIRED.getMsg());
         }
 
         String username = JWTUtil.getUsername(token);
         if (StringUtils.isBlank(username))
-            throw new AuthenticationException("token valid");
+            throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
 
         // 通过用户名查询用户信息
         User user = userService.findUserByUserName(username);
 
         if (user == null)
-            throw new AuthenticationException("token valid");
+            throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
         if (!JWTUtil.verify(token, username, user.getPassword()) )
-            throw new AuthenticationException("token valid");
+            throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
         return new SimpleAuthenticationInfo(token, token, "MyShiroRealm");
     }
 }

@@ -9,13 +9,9 @@ import java.util.Date;
 @Data
 public class User implements Serializable {
 
-    @NotNull
     private String userId;
-    @NotNull
     private String username;
-    @NotNull
     private String password;
-
     private String name;
     private Integer sex;
     private Date birthday;
