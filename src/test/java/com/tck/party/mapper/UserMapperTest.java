@@ -30,11 +30,5 @@ public class UserMapperTest {
         System.out.println(res);
     }
 
-    @Test
-    public void getAllUser() {
-        List<User> users = userMapper.findAll();
-        for (User user : users) {
-            System.out.println(user);
-        }
-    }
+
 }

@@ -16,9 +16,10 @@ public class CodeMsg {
     //通用的错误码
     public static CodeMsg SUCCESS = new CodeMsg(200, "success");
     public static CodeMsg UNAUTHORIZED = new CodeMsg(401, "unauthorized");
+    public static CodeMsg AUTH_DENY = new CodeMsg(402, "权限不足");
     public static CodeMsg BAD_REQUEST = new CodeMsg(500000, "bad_request");
-    public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务端异常");
-    public static CodeMsg BIND_ERROR = new CodeMsg(500101, "参数校验异常：%s");
+    public static CodeMsg SERVER_ERROR = new CodeMsg(500001, "服务端异常");
+    public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常：%s");
     //登录模块 5002XX
     public static CodeMsg PASSWORD_EMPTY = new CodeMsg(500211, "登录密码不能为空");
     public static CodeMsg MOBILE_EMPTY = new CodeMsg(500212, "手机号不能为空");

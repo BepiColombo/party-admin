@@ -1,5 +1,7 @@
 package com.tck.party.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.User;
 
@@ -12,7 +14,7 @@ public interface UserService {
      *
      * @return
      */
-    List<User> findAllUser();
+    PageInfo<User> findUsers(Integer pageNum, Integer pageSize);
 
     /**
      * 添加用户

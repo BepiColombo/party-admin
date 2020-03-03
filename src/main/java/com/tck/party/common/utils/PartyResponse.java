@@ -2,7 +2,7 @@ package com.tck.party.common.utils;
 
 import java.io.Serializable;
 
-public class ResponseUtils<T> implements Serializable {
+public class PartyResponse<T> implements Serializable {
 
     private int code;
 
@@ -17,7 +17,7 @@ public class ResponseUtils<T> implements Serializable {
      * @param msg
      * @param data
      */
-    public ResponseUtils(int code, String msg, T data) {
+    public PartyResponse(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -29,7 +29,7 @@ public class ResponseUtils<T> implements Serializable {
      * @param code
      * @param msg
      */
-    public ResponseUtils(int code, String msg) {
+    public PartyResponse(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

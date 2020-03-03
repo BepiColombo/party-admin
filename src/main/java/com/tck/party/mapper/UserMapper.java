@@ -1,5 +1,7 @@
 package com.tck.party.mapper;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
@@ -18,7 +20,7 @@ public interface UserMapper {
      * @return
      */
     @Select("select * from p_user")
-    List<User> findAll();
+    List<User> findUsers();
 
     /**
      * 根据用户名查找用户
@@ -67,4 +69,6 @@ public interface UserMapper {
             "u.username = #{username} " +
             "AND m.perms <> '' ")
     List<Menu> findUserPermissions(String username);
+
+
 }

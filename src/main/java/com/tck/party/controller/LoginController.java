@@ -12,9 +12,8 @@ import com.tck.party.service.UserService;
 import com.tck.party.shiro.JWTToken;
 import com.tck.party.shiro.JWTUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Validated
 @RestController
 @RequestMapping("")
 public class LoginController extends BaseController {
@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
     private ObjectMapper mapper;
 
     @PostMapping(value = "login")
-    public ResponseUtils login(@NotBlank(message = "{required}") String username,
+    public PartyResponse login(@NotBlank(message = "{required}") String username,
                                @NotBlank(message = "{required}") String password, HttpServletRequest request) throws Exception {
         User user = userService.findUserByUserName(username);
 
@@ -57,11 +57,11 @@ public class LoginController extends BaseController {
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
 //        System.out.println(jwtToken);
 
-        String userId = this.saveTokenToRedis(user, jwtToken, request);
+        this.saveTokenToRedis(user, jwtToken, request);
 //        user.setUserId(userId);
-        System.out.println(userId);
+
         Map<String, Object> result = this.generateUserInfo(jwtToken, user);
-        return new ResponseUtils(CodeMsg.SUCCESS.getCode(), "登录成功", result);
+        return new PartyResponse(CodeMsg.SUCCESS.getCode(), "登录成功", result);
     }
 
     private String saveTokenToRedis(User user, JWTToken token, HttpServletRequest request) throws Exception {
@@ -83,12 +83,7 @@ public class LoginController extends BaseController {
     }
 
     /**
-     * 生成前端需要的用户信息，包括：
-     * 1. token
-     * 2. Vue Router
-     * 3. 用户角色
-     * 4. 用户权限
-     * 5. 前端系统个性化配置信息
+     * 生成前端需要的用户信息
      *
      * @param token token
      * @param user  用户信息
@@ -98,16 +93,12 @@ public class LoginController extends BaseController {
         String username = user.getUsername();
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("token", token.getToken());
-        userInfo.put("exipreTime", token.getExipreAt());
-//
-//        Set<String> roles = this.userManager.getUserRoles(username);
-//        userInfo.put("roles", roles);
-//
-//        Set<String> permissions = this.userManager.getUserPermissions(username);
-//        userInfo.put("permissions", permissions);
-//
-//        UserConfig userConfig = this.userManager.getUserConfig(String.valueOf(user.getUserId()));
-//        userInfo.put("config", userConfig);
+
+        Set<String> roles = userService.findUserRoles(username);
+        userInfo.put("roles", roles);
+
+        Set<String> permissions = userService.findUserPermissions(username);
+        userInfo.put("permissions", permissions);
 
         userInfo.put("user", user);
         return userInfo;

@@ -1,5 +1,8 @@
 package com.tck.party.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
@@ -23,9 +26,11 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public List<User> findAllUser() {
-        List<User> users = userMapper.findAll();
-        return users;
+    public PageInfo<User> findUsers(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.findUsers();
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        return pageInfo;
     }
 
     ;

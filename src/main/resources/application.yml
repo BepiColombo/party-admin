@@ -20,13 +20,16 @@ spring:
         max-wait: 10000
     timeout: 5000
 
-#  shiro:
-#    session-timeout: 3600
-#    cookie-timeout: 86400
-#    anon_url: "/test/**,/img/**,/json/**,/images/captcha,/regist"
 
 mybatis:
   type-aliases-package: com.tck.party.entity
+#  mapper-locations: classpath*:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true # 驼峰命名规范 如：数据库字段是  order_id 那么 实体字段就要写成 orderId
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
 
