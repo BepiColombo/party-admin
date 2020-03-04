@@ -23,7 +23,7 @@ public interface UserMapper {
      *
      * @return
      */
-    @Select("select u.user_id as userId,u.username,u.name,u.sex,u.birthday,u.age,u.idcard,u.phone,u.address from p_user u where username = #{username}")
+    @Select("select u.id as userId,u.username,u.name,u.sex,u.birthday,u.age,u.idcard,u.phone,u.address from p_user u where username = #{username}")
     User findUserDetail(String username);
 
 
@@ -40,8 +40,9 @@ public interface UserMapper {
      *
      * @return
      */
-    @Insert("insert into p_user (user_id,username,password,name,sex,birthday,age,idcard,phone,address) values" +
-            "(#{userId},#{username},#{password},#{name},#{sex},#{birthday},#{age},#{idcard},#{phone},#{address})")
+    @Insert("insert into p_user (username,password,name,sex,birthday,age,idcard,phone,address) values" +
+            "(#{username},#{password},#{name},#{sex},#{birthday},#{age},#{idcard},#{phone},#{address})")
+    @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "id")
     int insertUser(User user);
 
 
@@ -69,7 +70,7 @@ public interface UserMapper {
             "LEFT JOIN p_role_menu rm ON ( rm.menu_id = m.menu_id ) " +
             "LEFT JOIN p_role r ON ( r.id = rm.role_id ) " +
             "LEFT JOIN p_role_user ru ON ( ru.role_id = r.id ) " +
-            "LEFT JOIN p_user u ON ( u.user_id = ru.user_id ) " +
+            "LEFT JOIN p_user u ON ( u.id = ru.user_id ) " +
             "WHERE " +
             "u.username = #{username} " +
             "AND m.perms <> '' ")

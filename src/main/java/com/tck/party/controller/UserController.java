@@ -7,7 +7,7 @@ import com.tck.party.common.domain.QueryRequest;
 import com.tck.party.entity.User;
 import com.tck.party.service.impl.UserServiceImpl;
 import com.tck.party.common.utils.CodeMsg;
-import com.tck.party.common.utils.PartyResponse;
+import com.tck.party.common.vo.PartyResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.tck.party.common.utils;
+package com.tck.party.common.vo;
 
 import java.io.Serializable;
 

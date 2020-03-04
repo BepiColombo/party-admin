@@ -33,3 +33,7 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+## 日志配置
+logging:
+  config: src/main/resources/logback.xml
+

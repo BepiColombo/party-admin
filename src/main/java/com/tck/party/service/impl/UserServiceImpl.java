@@ -7,11 +7,13 @@ import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.mapper.UserMapper;
+import com.tck.party.mapper.UserRoleMapper;
 import com.tck.party.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.jws.Oneway;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    UserRoleMapper userRoleMapper;
 
     /**
      * 查找所有用户
@@ -34,7 +39,7 @@ public class UserServiceImpl implements UserService {
         return pageInfo;
     }
 
-      /**
+    /**
      * 通过用户名获取用户信息
      *
      * @return
@@ -82,9 +87,22 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public int addUser(User user) {
+    public int insertUser(User user) {
         int res = userMapper.insertUser(user);
+
+        //默认设置为普通用户 roleId为1
+        this.setUserRoles(user.getUserId(),1);
         return res;
+    }
+
+    /**
+     * 给用户添加角色
+     *
+     * @param userId
+     * @param roleId
+     */
+    private void setUserRoles(Integer userId, Integer roleId) {
+        userRoleMapper.insertUserRole(userId, roleId);
     }
 
 }
