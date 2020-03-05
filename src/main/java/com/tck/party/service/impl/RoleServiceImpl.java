@@ -14,8 +14,4 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleMapper roleMapper;
 
-    public List<Role> findUserRoles(String username) {
-        List<Role> roles = roleMapper.findUserRoles(username);
-        return roles;
-    }
 }

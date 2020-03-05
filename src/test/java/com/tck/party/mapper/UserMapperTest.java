@@ -1,5 +1,6 @@
 package com.tck.party.mapper;
 
+import com.tck.party.entity.Menu;
 import com.tck.party.entity.Org;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
@@ -42,7 +43,7 @@ public class UserMapperTest {
 
     @Test
     public void findUser() {
-        List<User> users = userMapper.findUsers();
+        List<Menu> users = userMapper.findUserPermissions("tom");
 //        List<Role> roles = roleMapper.findByUserId(1);
 //        Org org = orgMapper.findUserOrg(1);
         System.out.println(users);

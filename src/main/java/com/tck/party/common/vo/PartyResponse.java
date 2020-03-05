@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PartyResponse<T> implements Serializable {
 
+    private static final long serialVersionUID = -3357718954867887224L;
+
     private int code;
 
     private String msg;
@@ -60,7 +62,7 @@ public class PartyResponse<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "PartyResponse{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

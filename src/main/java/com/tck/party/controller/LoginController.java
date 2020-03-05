@@ -97,11 +97,9 @@ public class LoginController extends BaseController {
         String username = JWTUtil.getUsername(decryptToken);
         User user = userService.findUserDetail(username);
         List<Menu> menus = menuService.findUserMenus(username);
-        List<Role> roles = roleService.findUserRoles(username);
         Map<String, Object> result = new HashMap<>();
         result.put("userInfo", user);
         result.put("menus", menus);
-        result.put("roles", roles);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), "", result);
     }
 
@@ -172,7 +170,7 @@ public class LoginController extends BaseController {
         //生成对应的角色及菜单集合
         String username = user.getUsername();
         List<Menu> menus = menuService.findUserMenus(username);
-        List<Role> roles = roleService.findUserRoles(username);
+        Set<String> roles = userService.findUserRoles(username);
         Map<String, Object> result = new HashMap<>();
         result.put("userInfo", user);
         result.put("menus", menus);

@@ -1,5 +1,7 @@
 package com.tck.party.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +14,7 @@ import java.util.Date;
 /**
  * 用户实体类
  */
+@JsonIgnoreProperties(value = { "handler" })
 @Data
 public class User implements Serializable {
 
@@ -21,6 +24,7 @@ public class User implements Serializable {
     @Size(min = 2, max = 10, message = "用户名长度应为2-10个字符")
     private String username;
 
+    @JsonIgnore
     @Size(min = 6, max = 10, message = "密码长度应为6-10个字符")
     private String password;
 

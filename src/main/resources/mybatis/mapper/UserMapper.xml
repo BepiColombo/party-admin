@@ -3,20 +3,107 @@
 
 <mapper namespace="com.tck.party.mapper.UserMapper">
 
-    <resultMap id="userResultMap" type="com.tck.party.entity.User">
-        <id column="user_id" property="userId" />
-        <result column="username" property="username"  />
-        <result column="password" property="password" />
-        <result column="name" property="name" />
-        <result column="sex" property="sex" />
-        <result column="birthday" property="birthday" />
+    <resultMap id="userResultMap" type="User">
+        <id column="id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="birthday" property="birthday"/>
         <result column="age" property="age"/>
-        <result column="idcard" property="idcard" />
-        <result column="phone" property="phone" />
-        <result column="address" property="address" />
+        <result column="idcard" property="idcard"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <association property="org" column="org_id">
+            <id property="orgId" column="org_id"></id>
+            <result property="orgName" column="org_name"></result>
+            <result property="orgAddress" column="org_address"></result>
+            <result property="parentId" column="parent_id"></result>
+        </association>
+        <association property="role" column="id">
+            <id property="roleId" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleDescription" column="role_description"></result>
+            <result property="roleId" column="role_id"></result>
+        </association>
     </resultMap>
 
+    <!--    查找所有的用户-->
     <select id="findUsers" resultMap="userResultMap">
-        select * from p_user
+       SELECT
+            u.*,
+            r.id AS role_id,
+            r.role_name AS role_name,
+            r.role_description AS role_description,
+            org.id AS org_id,
+            org.name AS org_name,
+            org.address AS org_address,
+            org.parent_id AS org_parent_id
+        FROM
+            p_user u
+            LEFT JOIN p_role_user ru ON ru.user_id = u.id
+            LEFT JOIN p_role r ON r.id = ru.role_id
+            LEFT JOIN p_organization org ON org.id = u.org_id
+    </select>
+
+    <!--通过用户名查找用户-->
+    <select id="findUserByUserName" resultType="User">
+        select * from p_user  where username = #{username}
+    </select>
+
+    <!--    获取用户详情-->
+    <select id="findUserDetail" resultMap="userResultMap">
+        SELECT
+            u.*,
+            r.id AS role_id,
+            r.role_name AS role_name,
+            r.role_description AS role_description,
+            org.id AS org_id,
+            org.name AS org_name,
+            org.address AS org_address,
+            org.parent_id AS org_parent_id
+        FROM
+            p_user u
+            LEFT JOIN p_role_user ru ON ru.user_id = u.id
+            LEFT JOIN p_role r ON r.id = ru.role_id
+            LEFT JOIN p_organization org ON org.id = u.org_id
+        WHERE
+            username = #{username}
+    </select>
+
+    <!--    插入一条用户记录-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO p_user ( username, password, name, sex, birthday, age, idcard, phone, address )
+        VALUES
+            (#{username},#{password},#{name},#{sex},#{birthday},#{age},#{idcard},#{phone},#{address})
+    </insert>
+
+    <!--    查找用户的角色-->
+    <select id="findUserRole" resultType="Role">
+        SELECT
+            r.id AS roleId,
+            r.role_name AS roleName,
+            r.role_description AS roleDescription
+        FROM
+            p_role r
+            LEFT JOIN p_role_user ru ON ( r.id = ru.role_id )
+            LEFT JOIN p_user u ON ( ru.user_id = u.id )
+        WHERE
+            u.username = #{username}
+    </select>
+
+    <!--    查找用户的权限集-->
+    <select id="findUserPermissions" resultType="Menu">
+        SELECT DISTINCT
+        m.perms
+        FROM
+        p_menu m
+        LEFT JOIN p_role_menu rm ON ( rm.menu_id = m.menu_id )
+        LEFT JOIN p_role r ON ( r.id = rm.role_id )
+        LEFT JOIN p_role_user ru ON ( ru.role_id = r.id )
+        LEFT JOIN p_user u ON ( u.id = ru.user_id )
+        WHERE
+        u.username = #{username}  AND m.perms <![CDATA[!= ]]> ""
     </select>
 </mapper>
