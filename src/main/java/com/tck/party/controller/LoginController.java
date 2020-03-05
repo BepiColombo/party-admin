@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tck.party.common.controller.BaseController;
 import com.tck.party.common.domain.ActiveUser;
 import com.tck.party.common.domain.PartyConstant;
-import com.tck.party.common.exception.PartyException;
 import com.tck.party.common.service.RedisService;
 import com.tck.party.common.utils.*;
 import com.tck.party.common.vo.PartyResponse;
@@ -69,11 +68,10 @@ public class LoginController extends BaseController {
         User user = userService.findUserByUserName(username);
 
 
-        final String errorMessage = "用户名或密码错误";
         if (user == null)
-            throw new PartyException("用户不存在");
+            return new PartyResponse(CodeMsg.USER_NOT_EXIST.getCode(), CodeMsg.USER_NOT_EXIST.getMsg(), "");
         if (!StringUtils.equals(user.getPassword(), password))
-            throw new PartyException(errorMessage);
+            return new PartyResponse(CodeMsg.USER_PWD_ERR.getCode(), CodeMsg.USER_PWD_ERR.getMsg(), "");
 
         JWTToken jwtToken = this.generateToken(user);
 
@@ -82,7 +80,7 @@ public class LoginController extends BaseController {
 
         Map<String, Object> result = new HashMap<>();
         result.put("token", jwtToken.getToken());
-        logger.info(user.getUsername()+"login");
+        logger.info(user.getUsername() + "login");
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), "登录成功", result);
     }
 

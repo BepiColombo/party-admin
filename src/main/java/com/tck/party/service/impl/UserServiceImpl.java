@@ -1,19 +1,16 @@
 package com.tck.party.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.tck.party.common.vo.PageResult;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
+import com.tck.party.mapper.RoleMapper;
 import com.tck.party.mapper.UserMapper;
-import com.tck.party.mapper.UserRoleMapper;
 import com.tck.party.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.jws.Oneway;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,18 +22,19 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
-    UserRoleMapper userRoleMapper;
+    RoleMapper roleMapper;
+
 
     /**
      * 查找所有用户
      *
      * @return
      */
-    public PageInfo<User> findUsers(Integer pageNum, Integer pageSize) {
+    public PageResult<User> findUsers(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userMapper.findUsers();
-        PageInfo<User> pageInfo = new PageInfo<>(users);
-        return pageInfo;
+        PageResult<User> pageResult = new PageResult<>(users);
+        return pageResult;
     }
 
     /**
@@ -91,7 +89,7 @@ public class UserServiceImpl implements UserService {
         int res = userMapper.insertUser(user);
 
         //默认设置为普通用户 roleId为1
-        this.setUserRoles(user.getUserId(),1);
+        this.setUserRoles(user.getUserId(), 1);
         return res;
     }
 
@@ -102,7 +100,7 @@ public class UserServiceImpl implements UserService {
      * @param roleId
      */
     private void setUserRoles(Integer userId, Integer roleId) {
-        userRoleMapper.insertUserRole(userId, roleId);
+        roleMapper.insertUserRole(userId, roleId);
     }
 
 }

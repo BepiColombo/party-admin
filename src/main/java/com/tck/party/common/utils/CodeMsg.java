@@ -27,6 +27,9 @@ public class CodeMsg {
     public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常：%s");
 
     public static CodeMsg USER_EXIST = new CodeMsg(500100, "用户名已注册");
+    public static CodeMsg USER_NOT_EXIST = new CodeMsg(500101, "用户名不存在");
+    public static CodeMsg USER_PWD_ERR = new CodeMsg(500102, "用户名或密码错误");
+
 
 
     public CodeMsg fillArgs(Object... args) {

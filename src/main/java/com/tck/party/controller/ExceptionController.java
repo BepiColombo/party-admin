@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -23,10 +25,13 @@ import java.util.Set;
 @RestControllerAdvice
 public class ExceptionController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
+
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ShiroException.class)
     public PartyResponse handle401(ShiroException e) {
+        logger.error("Shiro ERRO\n" + e.getMessage());
         return new PartyResponse(CodeMsg.AUTH_ERR.getCode(), e.getMessage());
     }
 
@@ -34,7 +39,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(AuthenticationException.class)
     public PartyResponse handleAuthenticationException(AuthenticationException e) {
-        System.out.println(e.getMessage());
+        logger.error("AuthenticationException ERROR\n" + e.getMessage());
         return new PartyResponse(CodeMsg.UNAUTHORIZED.getCode(), e.getMessage());
     }
 
@@ -43,6 +48,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(Exception.class)
     public PartyResponse globException(HttpServletRequest request, Throwable ex) {
+        logger.error("BAD_REQUEST ERROR\n" + ex.getMessage());
         return new PartyResponse(CodeMsg.BAD_REQUEST.getCode(), CodeMsg.SERVER_ERROR.getMsg(), null);
     }
 
@@ -61,6 +67,7 @@ public class ExceptionController {
             message.append(error.getDefaultMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
+//        logger.error("Request params or body error \n" + e.getMessage());
         return new PartyResponse(CodeMsg.BIND_ERROR.getCode(), message.toString(), null);
 
     }
@@ -82,6 +89,7 @@ public class ExceptionController {
             message.append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
+//        logger.error("Request params or body error \n" + e.getMessage());
         return new PartyResponse(CodeMsg.BIND_ERROR.getCode(), message.toString(), null);
     }
 

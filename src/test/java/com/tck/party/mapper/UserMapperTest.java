@@ -1,7 +1,10 @@
 package com.tck.party.mapper;
 
+import com.tck.party.entity.Org;
+import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -11,8 +14,14 @@ import java.util.List;
 @SpringBootTest
 public class UserMapperTest {
 
-    @Resource
+    @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    RoleMapper roleMapper;
+
+    @Autowired
+    OrgMapper orgMapper;
 
     @Test
     public void addUser() {
@@ -31,4 +40,11 @@ public class UserMapperTest {
     }
 
 
+    @Test
+    public void findUser() {
+        List<User> users = userMapper.findUsers();
+//        List<Role> roles = roleMapper.findByUserId(1);
+//        Org org = orgMapper.findUserOrg(1);
+        System.out.println(users);
+    }
 }

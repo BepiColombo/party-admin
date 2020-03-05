@@ -5,7 +5,7 @@ public class PartyConstant {
     public static final String TOKEN_CACHE_PREFIX = "party.cache.token.";
 
     // token有效时间
-    public static final long JWT_TIMEOUT = 3600 * 1000;
+    public static final long JWT_TIMEOUT = 60 * 60 * 24 * 7 * 1000;
 
     // 后端免认证接口 url
     public static final String ANNO_URL = "/login,/logout/**,/regist";

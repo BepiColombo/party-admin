@@ -4,6 +4,7 @@ import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -14,7 +15,21 @@ public interface UserMapper {
      *
      * @return
      */
-    @Select("select * from p_user")
+    @Select("select id,username,name,sex,age,birthday,idcard,phone,address,create_time,update_time,org_id from p_user")
+    @Results(id = "userMap", value = {
+            @Result(column = "id", property = "userId"),
+            @Result(column = "username", property = "username"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "sex", property = "sex"),
+            @Result(column = "age", property = "age"),
+            @Result(column = "birthday", property = "birthday"),
+            @Result(column = "idcard", property = "idcard"),
+            @Result(column = "phone", property = "phone"),
+            @Result(column = "address", property = "address"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "update_time", property = "updateTime"),
+            @Result(column = "id", property = "role", many = @Many(fetchType = FetchType.LAZY, select = "com.tck.party.mapper.RoleMapper.findByUserId")),
+            @Result(column = "org_id", property = "org", one = @One(fetchType = FetchType.EAGER, select = "com.tck.party.mapper.OrgMapper.findUserOrg")),})
     List<User> findUsers();
 
 
@@ -54,7 +69,7 @@ public interface UserMapper {
      */
     @Select("SELECT r.id as roleId,r.role_name as roleName,r.role_description as roleDescription from p_role r " +
             "LEFT JOIN p_role_user ru on (r.id = ru.role_id) " +
-            "LEFT JOIN p_user u on (ru.user_id = u.user_id) where u.username = #{username}")
+            "LEFT JOIN p_user u on (ru.user_id = u.id) where u.username = #{username}")
     List<Role> findUserRole(String username);
 
     /**

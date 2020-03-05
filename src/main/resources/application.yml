@@ -1,5 +1,9 @@
 
 spring:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/party?serverTimezone=GMT

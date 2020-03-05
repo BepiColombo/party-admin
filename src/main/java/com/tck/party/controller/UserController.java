@@ -1,20 +1,21 @@
 package com.tck.party.controller;
 
 
-import com.github.pagehelper.PageInfo;
 import com.tck.party.common.controller.BaseController;
 import com.tck.party.common.domain.QueryRequest;
+import com.tck.party.common.vo.PageResult;
 import com.tck.party.entity.User;
 import com.tck.party.service.impl.UserServiceImpl;
 import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.vo.PartyResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
-
-
+@Validated
 @RestController
 @RequestMapping("user")
 public class UserController extends BaseController {
@@ -27,11 +28,10 @@ public class UserController extends BaseController {
      *
      * @return
      */
-//    @RequiresRoles("super_administrator")
     @RequiresPermissions("user:view")
-    @GetMapping(value = "getAllUser")
-    public PartyResponse<PageInfo<User>> findAllUser(QueryRequest queryRequest) {
-        PageInfo<User> users = userService.findUsers(queryRequest.getPageNum(), queryRequest.getPageSize());
+    @GetMapping(value = "getUserList")
+    public PartyResponse<PageResult<User>> findAllUser(@Valid QueryRequest queryRequest) {
+        PageResult<User> users = userService.findUsers(queryRequest.getPageNum(), queryRequest.getPageSize());
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg(), users);
     }
 

@@ -1,11 +1,8 @@
 package com.tck.party.service;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-import com.tck.party.entity.Menu;
+import com.tck.party.common.vo.PageResult;
 import com.tck.party.entity.User;
 
-import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -14,7 +11,7 @@ public interface UserService {
      *
      * @return
      */
-    PageInfo<User> findUsers(Integer pageNum, Integer pageSize);
+    PageResult<User> findUsers(Integer pageNum, Integer pageSize);
 
 
     /**
@@ -24,6 +21,7 @@ public interface UserService {
 
     /**
      * 获取用户详情
+     *
      * @param username
      * @return
      */
@@ -31,6 +29,7 @@ public interface UserService {
 
     /**
      * 通过用户名获取用户角色集
+     *
      * @param username
      * @return
      */
@@ -38,6 +37,7 @@ public interface UserService {
 
     /**
      * 铜鼓用户名获取用户菜单\按钮权限集
+     *
      * @param username
      * @return
      */
