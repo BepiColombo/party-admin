@@ -39,6 +39,6 @@ pagehelper:
 ## 日志配置
 logging:
   config: src/main/resources/logback.xml
-  level:
-    com.tck.party.mapper: debug
+#  level:
+#    com.tck.party.mapper: debug
 

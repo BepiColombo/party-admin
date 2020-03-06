@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class JWTUtil {
 
-    private static final long EXPIRE_TIME = PartyConstant.JWT_TIMEOUT;
+    private static final long EXPIRE_TIME = PartyConstant.JWT_TIMEOUT * 1000;
 
     /**
      * 校验 token是否正确
@@ -59,6 +59,7 @@ public class JWTUtil {
         try {
             username = StringUtils.lowerCase(username);
             Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+            System.out.println(date);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withClaim("username", username)

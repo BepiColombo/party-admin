@@ -115,10 +115,11 @@ public class LoginController extends BaseController {
         //生成token（进行了加密）
         String token = PartyUtils.encryptToken(JWTUtil.sign(username, password));
         LocalDateTime expireTime = LocalDateTime.now().plusSeconds(PartyConstant.JWT_TIMEOUT);
-        System.out.println(LocalDateTime.now());
         String expireTimeStr = DateUtil.formatFullTime(expireTime);
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
-        System.out.println(expireTimeStr);
+
+        System.out.println("LoginController generateToken: "+expireTimeStr);
+
         return jwtToken;
     }
 

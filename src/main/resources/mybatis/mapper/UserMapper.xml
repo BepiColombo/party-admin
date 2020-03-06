@@ -54,7 +54,6 @@
         </if>
         <if test="startTime!=null and startTime !=''">
             AND UNIX_TIMESTAMP(create_time) &gt;= UNIX_TIMESTAMP(#{startTime})+ 60*60*24
-
         </if>
         <if test="endTime!=null and endTime !=''">
             AND UNIX_TIMESTAMP(create_time) &lt;= UNIX_TIMESTAMP(#{endTime})+ 60*60*24
