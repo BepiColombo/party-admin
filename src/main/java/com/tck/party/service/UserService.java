@@ -2,6 +2,7 @@ package com.tck.party.service;
 
 import com.tck.party.common.vo.PageResult;
 import com.tck.party.entity.User;
+import com.tck.party.query.UserQuery;
 
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public interface UserService {
      *
      * @return
      */
-    PageResult<User> findUsers(Integer pageNum, Integer pageSize);
+    PageResult<User> findUsers(UserQuery userQuery);
 
 
     /**

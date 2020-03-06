@@ -28,7 +28,7 @@ public class User implements Serializable {
     @Size(min = 6, max = 10, message = "密码长度应为6-10个字符")
     private String password;
 
-    private String name;
+    private String nickname;
 
     @NotNull(message = "性别不能为空")
     private Integer sex;

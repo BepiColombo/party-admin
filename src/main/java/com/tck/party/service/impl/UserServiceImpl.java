@@ -7,6 +7,7 @@ import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.mapper.RoleMapper;
 import com.tck.party.mapper.UserMapper;
+import com.tck.party.query.UserQuery;
 import com.tck.party.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,9 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public PageResult<User> findUsers(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<User> users = userMapper.findUsers();
+    public PageResult<User> findUsers(UserQuery userQuery) {
+        PageHelper.startPage(userQuery.getPageNum(), userQuery.getPageSize());
+        List<User> users = userMapper.findUsers(userQuery);
         PageResult<User> pageResult = new PageResult<>(users);
         return pageResult;
     }

@@ -1,8 +1,7 @@
-
 spring:
-#  jackson:
-#    serialization:
-#      FAIL_ON_EMPTY_BEANS: false
+  #  jackson:
+  #    serialization:
+  #      FAIL_ON_EMPTY_BEANS: false
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,7 +25,7 @@ spring:
 
 
 mybatis:
-  type-aliases-package: com.tck.party.entity
+  type-aliases-package: com.tck.party.entity,com.tck.party.query
   mapper-locations: classpath*:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true # 驼峰命名规范 如：数据库字段是  order_id 那么 实体字段就要写成 orderId
@@ -40,4 +39,6 @@ pagehelper:
 ## 日志配置
 logging:
   config: src/main/resources/logback.xml
+  level:
+    com.tck.party.mapper: debug
 

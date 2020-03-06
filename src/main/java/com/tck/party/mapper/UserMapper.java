@@ -3,6 +3,7 @@ package com.tck.party.mapper;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
+import com.tck.party.query.UserQuery;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
@@ -30,7 +31,7 @@ public interface UserMapper {
 //            @Result(column = "update_time", property = "updateTime"),
 //            @Result(column = "id", property = "role", many = @Many(fetchType = FetchType.LAZY, select = "com.tck.party.mapper.RoleMapper.findByUserId")),
 //            @Result(column = "org_id", property = "org", one = @One(fetchType = FetchType.EAGER, select = "com.tck.party.mapper.OrgMapper.findUserOrg")),})
-    List<User> findUsers();
+    List<User> findUsers(UserQuery userQuery);
 
 
     /**

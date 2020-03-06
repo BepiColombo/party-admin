@@ -2,9 +2,10 @@ package com.tck.party.controller;
 
 
 import com.tck.party.common.controller.BaseController;
-import com.tck.party.common.domain.QueryRequest;
+import com.tck.party.common.domain.BasePageQuery;
 import com.tck.party.common.vo.PageResult;
 import com.tck.party.entity.User;
+import com.tck.party.query.UserQuery;
 import com.tck.party.service.impl.UserServiceImpl;
 import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.vo.PartyResponse;
@@ -29,9 +30,9 @@ public class UserController extends BaseController {
      * @return
      */
     @RequiresPermissions("user:view")
-    @GetMapping(value = "getUserList")
-    public PartyResponse<PageResult<User>> findAllUser(@Valid QueryRequest queryRequest) {
-        PageResult<User> users = userService.findUsers(queryRequest.getPageNum(), queryRequest.getPageSize());
+    @PostMapping(value = "getUserList")
+    public PartyResponse<PageResult<User>> findAllUser(@Valid UserQuery userQuery) {
+        PageResult<User> users = userService.findUsers(userQuery);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg(), users);
     }
 

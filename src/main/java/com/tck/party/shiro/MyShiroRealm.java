@@ -83,6 +83,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
 
         String username = JWTUtil.getUsername(token);
+
         if (StringUtils.isBlank(username))
             throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
 
@@ -91,7 +92,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         if (user == null)
             throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
+        Boolean verifyRes = JWTUtil.verify(token, username, user.getPassword());
+        System.out.println(verifyRes);
         if (!JWTUtil.verify(token, username, user.getPassword()) )
+
             throw new AuthenticationException(CodeMsg.TOKEN_INVALID.getMsg());
         return new SimpleAuthenticationInfo(token, token, "MyShiroRealm");
     }

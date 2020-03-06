@@ -15,7 +15,7 @@ public class UserServiceTest {
 
     @Test
     public void findUsers() {
-        PageResult<User> res = userService.findUsers(1, 10);
-        System.out.println(res);
+//        PageResult<User> res = userService.findUsers(1, 10);
+//        System.out.println(res);
     }
 }

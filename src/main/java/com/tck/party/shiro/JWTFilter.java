@@ -91,7 +91,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean sendChallenge(ServletRequest request, ServletResponse response) {
         HttpServletResponse httpResponse = WebUtils.toHttp(response);
-        httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        httpResponse.setStatus(HttpStatus.OK.value());
         httpResponse.setCharacterEncoding("utf-8");
         httpResponse.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = httpResponse.getWriter()) {

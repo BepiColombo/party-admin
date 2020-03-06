@@ -33,7 +33,7 @@ public class UserMapperTest {
         user.setBirthday(new Date());
         user.setIdcard("2156974312");
         user.setPhone("18749316648");
-        user.setName("琼斯");
+        user.setNickname("琼斯");
         user.setPassword("3212");
         user.setSex(1);
         int res = userMapper.insertUser(user);

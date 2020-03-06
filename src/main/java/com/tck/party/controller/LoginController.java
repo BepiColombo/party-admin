@@ -115,8 +115,10 @@ public class LoginController extends BaseController {
         //生成token（进行了加密）
         String token = PartyUtils.encryptToken(JWTUtil.sign(username, password));
         LocalDateTime expireTime = LocalDateTime.now().plusSeconds(PartyConstant.JWT_TIMEOUT);
+        System.out.println(LocalDateTime.now());
         String expireTimeStr = DateUtil.formatFullTime(expireTime);
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
+        System.out.println(expireTimeStr);
         return jwtToken;
     }
 
@@ -142,7 +144,7 @@ public class LoginController extends BaseController {
         // zset 存储登录用户，score 为过期时间戳
         this.redisService.zadd(PartyConstant.ACTIVE_USERS_ZSET_PREFIX, Double.valueOf(token.getExipreAt()), mapper.writeValueAsString(activeUser));
         // redis 中存储这个加密 token，key = 前缀 + 加密 token + .ip
-        this.redisService.set(PartyConstant.TOKEN_CACHE_PREFIX + token.getToken() + "." + ip, token.getToken(), PartyConstant.JWT_TIMEOUT);
+        this.redisService.set(PartyConstant.TOKEN_CACHE_PREFIX + token.getToken() + "." + ip, token.getToken(), PartyConstant.JWT_TIMEOUT * 1000);
 
         return activeUser.getId();
     }
