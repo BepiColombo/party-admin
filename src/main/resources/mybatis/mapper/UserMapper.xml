@@ -9,8 +9,7 @@
         <result column="nickname" property="nickname"/>
         <result column="sex" property="sex"/>
         <result column="birthday" property="birthday"/>
-        <result column="age" property="age"/>
-        <result column="idcard" property="idcard"/>
+        <result column="is_valid" property="isValid"/>
         <result column="phone" property="phone"/>
         <result column="address" property="address"/>
         <result column="create_time" property="createTime"/>
@@ -87,9 +86,9 @@
 
     <!--    插入一条用户记录-->
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        INSERT INTO p_user ( username, password, nickname, sex, birthday, age, idcard, phone, address )
+        INSERT INTO p_user ( username, password, nickname, sex, birthday, phone, address )
         VALUES
-            (#{username},#{password},#{nickname},#{sex},#{birthday},#{age},#{idcard},#{phone},#{address})
+            (#{username},#{password},#{nickname},#{sex},#{birthday},#{phone},#{address})
     </insert>
 
     <!--    查找用户的角色-->
@@ -119,4 +118,42 @@
         WHERE
         u.username = #{username}  AND m.perms <![CDATA[!= ]]> ""
     </select>
+
+    <!--    通过userId删除用户-->
+    <delete id="deleteUserById">
+        DELETE FROM p_user WHERE id = #{userId}
+    </delete>
+
+    <!--    更新用户信息-->
+    <update id="updateUser">
+        update p_user u
+        <trim prefix="set" suffixOverrides=",">
+            <if test="org.orgId !=null">
+                u.org_id = #{org.orgId},
+            </if>
+            <if test="password !=null and password !=''">
+                u.password = #{password},
+            </if>
+            <if test="nickname !=null and nickname !=''">
+                u.nickname = #{nickname},
+            </if>
+            <if test="sex !=null">
+                u.sex = #{sex},
+            </if>
+            <if test="birthday !=null">
+                u.birthday = #{birthday},
+            </if>
+            <if test="phone !=null and phone !=''">
+                u.phone = #{phone},
+            </if>
+            <if test="isValid !=null">
+                u.is_valid = #{isValid},
+            </if>
+            <if test="address !=null and address !=''">
+                u.address = #{address},
+            </if>
+        </trim>
+        where
+        u.id = #{userId}
+    </update>
 </mapper>

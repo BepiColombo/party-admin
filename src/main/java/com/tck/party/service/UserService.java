@@ -50,4 +50,18 @@ public interface UserService {
      * @return
      */
     int insertUser(User user);
+
+    /**
+     * 通过userId删除用户
+     * @param userId
+     * @return
+     */
+    int deleteUserById(Integer userId);
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
 }

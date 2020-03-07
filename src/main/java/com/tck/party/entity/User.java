@@ -2,6 +2,7 @@ package com.tck.party.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,8 +25,8 @@ public class User implements Serializable {
     @Size(min = 2, max = 10, message = "用户名长度应为2-10个字符")
     private String username;
 
-    @JsonIgnore
     @Size(min = 6, max = 10, message = "密码长度应为6-10个字符")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private String nickname;
@@ -36,9 +37,8 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    private Integer age;
 
-    private String idcard;
+    private Integer isValid;
 
     @NotBlank(message = "手机号不能为空")
     private String phone;

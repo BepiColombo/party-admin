@@ -7,8 +7,8 @@ import com.tck.party.common.domain.PartyConstant;
 import com.tck.party.common.service.RedisService;
 import com.tck.party.common.utils.*;
 import com.tck.party.common.vo.PartyResponse;
+import com.tck.party.dto.LoginParam;
 import com.tck.party.entity.Menu;
-import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.service.MenuService;
 import com.tck.party.service.RoleService;
@@ -20,13 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -56,17 +53,18 @@ public class LoginController extends BaseController {
     /**
      * 登录
      *
-     * @param username
-     * @param password
      * @param request
      * @return
      * @throws Exception
      */
     @PostMapping(value = "login")
-    public PartyResponse login(@NotBlank(message = "用户名不能为空") String username,
-                               @NotBlank(message = "密码不能为空") String password, HttpServletRequest request) throws Exception {
-        User user = userService.findUserByUserName(username);
+    public PartyResponse login(@RequestBody LoginParam loginParam,
+                               HttpServletRequest request) throws Exception {
 
+        String username = loginParam.getUsername();
+        String password = loginParam.getPassword();
+
+        User user = userService.findUserByUserName(username);
 
         if (user == null)
             return new PartyResponse(CodeMsg.USER_NOT_EXIST.getCode(), CodeMsg.USER_NOT_EXIST.getMsg(), "");
@@ -92,7 +90,7 @@ public class LoginController extends BaseController {
      * @throws Exception
      */
     @PostMapping(value = "getUserInfo")
-    public PartyResponse getUserInfo(@NotBlank(message = "token不能为空") String token) throws Exception {
+    public PartyResponse getUserInfo(@RequestHeader("Authorization") String token) throws Exception {
         String decryptToken = PartyUtils.decryptToken(token);
         String username = JWTUtil.getUsername(decryptToken);
         User user = userService.findUserDetail(username);
@@ -118,7 +116,7 @@ public class LoginController extends BaseController {
         String expireTimeStr = DateUtil.formatFullTime(expireTime);
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
 
-        System.out.println("LoginController generateToken: "+expireTimeStr);
+//        System.out.println("LoginController generateToken: "+expireTimeStr);
 
         return jwtToken;
     }
@@ -158,7 +156,7 @@ public class LoginController extends BaseController {
      * @return
      */
     @PostMapping(value = "regist")
-    public PartyResponse reigist(@Valid User user, HttpServletRequest request) throws Exception {
+    public PartyResponse reigist(@RequestBody @Valid User user, HttpServletRequest request) throws Exception {
         User find_user = userService.findUserByUserName(user.getUsername());
         if (find_user != null) {
             //判断用户是否已存在

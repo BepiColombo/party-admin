@@ -31,59 +31,42 @@ public class UserController extends BaseController {
      */
     @RequiresPermissions("user:view")
     @PostMapping(value = "getUserList")
-    public PartyResponse<PageResult<User>> findAllUser(@Valid UserQuery userQuery) {
+    public PartyResponse<PageResult<User>> findAllUser(@RequestBody @Valid UserQuery userQuery) {
         PageResult<User> users = userService.findUsers(userQuery);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg(), users);
     }
 
-//    /**
-//     * 添加用户
-//     *
-//     * @param user
-//     * @return
-//     */
-//    @PostMapping(value = "addUser")
-//    public ResponseBean addUser(User user) {
-//        int res = userService.addUser(user);
-//        if (res == 1) {
-//            return ResultGenerator.generateSuccessResult("添加成功");
-//        } else {
-//            return ResultGenerator.generateFailResult("添加失败");
-//        }
-//    }
 
-    //    @GetMapping(value = "getUserById")
-//    public Result<User> findUserById(@RequestParam("id") Integer id) {
-//        User user = userService.findById(id);
-//        if (user != null) {
-//            return ResultGenerator.generateSuccessResult(user);
-//        } else {
-//            return ResultGenerator.generateSuccessResult("未找到该用户");
-//        }
-//    }
-//
-//
-//    @GetMapping(value = "updateUser")
-//    public Result<User> updateUser(@RequestBody User user) {
-//
-//        int res = userService.updateUser(user);
-//        if (res == 1) {
-//            return ResultGenerator.generateSuccessResult("修改成功");
-//        } else {
-//            return ResultGenerator.generateFailResult("修改失败");
-//
-//        }
-//    }
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    @RequiresPermissions("user:update")
+    @PostMapping(value = "updateUser")
+    public PartyResponse updateUser(@RequestBody @Valid User user){
+        int res = userService.updateUser(user);
+        if(res==1){
+            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.UPDATE_ACTION_SUCCESS.getMsg());
+        }else{
+            return new PartyResponse(CodeMsg.UPDATE_ACTION_FAIL.getCode(), CodeMsg.UPDATE_ACTION_FAIL.getMsg());
+        }
+    }
 
-
-//    @PostMapping(value = "addUser")
-//    public Result<User> addUser(@RequestBody User user) {
-//        int res = userService.insertUser(user);
-//        if (res == 1) {
-//            return ResultGenerator.generateSuccessResult("添加成功");
-//        } else {
-//            return ResultGenerator.generateFailResult("添加失败");
-//
-//        }
-//    }
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     */
+    @RequiresPermissions("user:delete")
+    @PostMapping(value = "deleteUser")
+    public PartyResponse deleteUser(@RequestParam("userId") Integer userId) {
+        int res = userService.deleteUserById(userId);
+        if (res == 1) {
+            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.DEL_ACTION_SUCCESS.getMsg());
+        } else {
+            return new PartyResponse(CodeMsg.DEL_ACTION_FAIL.getCode(), CodeMsg.DEL_ACTION_FAIL.getMsg());
+        }
+    }
 }

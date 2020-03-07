@@ -14,4 +14,14 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleMapper roleMapper;
 
+    /**
+     * 获取所有的角色记录
+     *
+     * @return
+     */
+    public List<Role> findRoleList() {
+        return roleMapper.findRoleList();
+    }
+
+    ;
 }

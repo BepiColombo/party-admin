@@ -24,7 +24,11 @@ public class CodeMsg {
 
     public static CodeMsg BAD_REQUEST = new CodeMsg(500000, "bad_request");
     public static CodeMsg SERVER_ERROR = new CodeMsg(500001, "服务端异常");
-    public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常：%s");
+    public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常");
+    public static CodeMsg DEL_ACTION_FAIL = new CodeMsg(500003, "删除失败");
+    public static CodeMsg DEL_ACTION_SUCCESS = new CodeMsg(500004, "删除成功");
+    public static CodeMsg UPDATE_ACTION_FAIL = new CodeMsg(500005, "更新失败");
+    public static CodeMsg UPDATE_ACTION_SUCCESS = new CodeMsg(500006, "更新成功");
 
     public static CodeMsg USER_EXIST = new CodeMsg(500100, "用户名已注册");
     public static CodeMsg USER_NOT_EXIST = new CodeMsg(500101, "用户名不存在");

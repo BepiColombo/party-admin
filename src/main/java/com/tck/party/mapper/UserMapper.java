@@ -74,4 +74,17 @@ public interface UserMapper {
     List<Menu> findUserPermissions(String username);
 
 
+    /**
+     * 通过id删除用户
+     * @param userId
+     * @return
+     */
+    int deleteUserById(Integer userId);
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
 }

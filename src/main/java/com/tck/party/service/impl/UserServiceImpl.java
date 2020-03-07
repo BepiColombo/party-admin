@@ -95,6 +95,28 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 通过userId删除用户
+     *
+     * @param userId
+     * @return
+     */
+    public int deleteUserById(Integer userId) {
+        int res = userMapper.deleteUserById(userId);
+        return res;
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param user
+     * @return
+     */
+    public int updateUser(User user) {
+        int res = userMapper.updateUser(user);
+        return res;
+    }
+
+    /**
      * 给用户添加角色
      *
      * @param userId

@@ -29,9 +29,7 @@ public class UserMapperTest {
         User user = new User();
         user.setUsername("franks");
         user.setAddress("芝加哥市");
-        user.setAge(45);
         user.setBirthday(new Date());
-        user.setIdcard("2156974312");
         user.setPhone("18749316648");
         user.setNickname("琼斯");
         user.setPassword("3212");
