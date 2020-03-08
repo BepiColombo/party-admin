@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tck.party.mapper.MenuMapper">
+
+    <resultMap id="menuResultMap" type="Menu">
+        <result column="menu_id" property="menuId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="menu_name" property="menuName"/>
+        <result column="url" property="url"/>
+        <result column="perms" property="perms"/>
+    </resultMap>
+
+    <select id="findUserMenus" resultMap="menuResultMap">
+        SELECT
+            *
+        FROM
+            `p_menu` m
+            LEFT JOIN p_role_menu rm ON rm.menu_id = m.menu_id
+            LEFT JOIN p_role_user ru ON ru.role_id = rm.role_id
+            LEFT JOIN p_user u ON u.id = ru.user_id
+        WHERE
+            u.username = #{username}
+    </select>
+
+    <!--查找所有的菜单-->
+    <select id="findMenuList" resultMap="menuResultMap">
+        SELECT * from p_menu;
+    </select>
+
+    <!--    插入一条菜单记录-->
+    <insert id="insertMenu" useGeneratedKeys="true" keyProperty="menuId">
+        INSERT INTO p_menu ( parent_id, menu_name, perms, url )
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId!=null">
+                #{parentId},
+            </if>
+            <if test="menuName!=null and menuName!=''">
+                #{menuName},
+            </if>
+            <if test="perms!=null and perms!=''">
+                #{perms},
+            </if>
+            <if test="url!=null and url!=''">
+                #{url},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    删除菜单-->
+    <delete id="deleteMenu">
+          DELETE FROM p_menu WHERE menu_id = #{menuId}
+    </delete>
+
+    <!--    更新菜单信息-->
+    <update id="updateMenu">
+        update p_menu
+        <trim prefix="set" suffixOverrides=",">
+            <if test="parentId !=null">
+                parent_id = #{parentId},
+            </if>
+            <if test="menuName !=null and menuName !=''">
+                menuName = #{menuName},
+            </if>
+            <if test="perms !=null and perms !=''">
+                perms = #{perms},
+            </if>
+            <if test="url !=null">
+                url = #{url},
+            </if>
+        </trim>
+        where
+        menu_id = #{menuId}
+    </update>
+</mapper>

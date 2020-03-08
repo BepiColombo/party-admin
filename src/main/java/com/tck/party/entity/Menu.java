@@ -2,6 +2,7 @@ package com.tck.party.entity;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ public class Menu implements Serializable {
 
     private Integer parentId;
 
+    @NotBlank(message = "菜单名称不能为空")
     private String menuName;
 
     private String perms;

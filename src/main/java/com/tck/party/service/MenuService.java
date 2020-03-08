@@ -11,4 +11,24 @@ public interface MenuService {
      * @return
      */
     List<Menu> findUserMenus(String username);
+
+    /**
+     * 获取所有的menu
+     * @return
+     */
+    List<Menu> findMenuList();
+
+    /**
+     * 更新菜单
+     * @param menu
+     * @return
+     */
+    int updateMenu(Menu menu);
+
+    /**
+     * 插入一条菜单记录
+     * @param menu
+     * @return
+     */
+    int insertMenu(Menu menu);
 }

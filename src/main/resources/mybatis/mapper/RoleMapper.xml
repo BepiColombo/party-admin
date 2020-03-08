@@ -2,11 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tck.party.mapper.RoleMapper">
-<!--    &lt;!&ndash;    更新用户角色&ndash;&gt;-->
-<!--    <update id="updateUserRole">-->
-<!--       UPDATE p_role_user-->
-<!--        SET role_id = #{roleId}-->
-<!--        WHERE-->
-<!--            user_id = #{userId}-->
-<!--    </update>-->
+
+    <resultMap id="roleResultMap" type="Role">
+        <result column="id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_description" property="roleDescription"/>
+    </resultMap>
+
+    <!--    获取所有的角色-->
+    <select id="findRoleList" resultMap="roleResultMap">
+        select * from p_role
+    </select>
+
+
+    <!--    插入一条菜单记录-->
+    <insert id="insertRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO p_role ( role_name, role_description )
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleName!=null and roleName!=''">
+                #{roleName},
+            </if>
+            <if test="roleDescription!=null and roleDescription!=''">
+                #{roleDescription},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    删除角色-->
+    <delete id="deleteRole">
+          DELETE FROM p_role WHERE id = #{roleId}
+    </delete>
+
+    <!--    插入一条用户-角色记录-->
+    <insert id="insertUserRole">
+        INSERT INTO p_role_user VALUES (#{userId},#{roleId})
+    </insert>
+
+    <!--    更改用户对应的角色-->
+    <update id="updateUserRole">
+        UPDATE p_role_user SET role_id = #{roleId} WHERE user_id = #{userId}
+    </update>
+
+    <!--    更新角色信息-->
+    <update id="updateRole">
+        update p_role
+        <trim prefix="set" suffixOverrides=",">
+            <if test="roleName !=null and roleName!=''">
+                role_name = #{parentId},
+            </if>
+            <if test="roleDescription !=null and roleDescription !=''">
+                role_description = #{roleDescription},
+            </if>
+        </trim>
+        where
+        id = #{roleId}
+    </update>
 </mapper>

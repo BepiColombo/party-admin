@@ -9,6 +9,30 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 
-    @Select("SELECT m.menu_id as menuId,m.parent_id as parentId,m.menu_name as menuName,m.url as url,m.perms as perms FROM `p_menu` m LEFT JOIN p_role_menu rm ON rm.menu_id=m.menu_id LEFT JOIN p_role_user ru ON ru.role_id = rm.role_id LEFT JOIN p_user u ON u.id = ru.user_id WHERE u.username = #{username}")
     List<Menu> findUserMenus(String username);
+
+    /**
+     * 获取所有的menu
+     * @return
+     */
+    List<Menu> findMenuList();
+
+    /**
+     * 更新菜单信息
+     */
+    int updateMenu(Menu menu);
+
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    int deleteMenu(Integer menuId);
+
+    /**
+     * 插入一条菜单记录
+     * @param menu
+     * @return
+     */
+    int insertMenu(Menu menu);
 }

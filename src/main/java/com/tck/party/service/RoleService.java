@@ -20,4 +20,25 @@ public interface RoleService {
      * @return
      */
     int updateUserRole(Integer userId,Integer roleId);
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    int deleteRole(Integer roleId);
+
+    /***
+     * 更新角色
+     * @param role
+     * @return
+     */
+    int updateRole(Role role);
+
+    /**
+     * 插入角色记录
+     * @param role
+     * @return
+     */
+    int insertRole(Role role);
 }

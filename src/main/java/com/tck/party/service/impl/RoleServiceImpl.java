@@ -25,11 +25,42 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 更新用户角色
+     *
      * @param userId
      * @param roleId
      * @return
      */
-    public int updateUserRole(Integer userId,Integer roleId){
-        return roleMapper.updateUserRole(userId,roleId);
+    public int updateUserRole(Integer userId, Integer roleId) {
+        return roleMapper.updateUserRole(userId, roleId);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     * @return
+     */
+    public int deleteRole(Integer roleId) {
+        return roleMapper.deleteRole(roleId);
+    }
+
+    /**
+     * 更新角色
+     *
+     * @param role
+     * @return
+     */
+    public int updateRole(Role role) {
+        return roleMapper.updateRole(role);
+    }
+
+    /**
+     * 插入一条角色记录
+     *
+     * @param role
+     * @return
+     */
+    public int insertRole(Role role) {
+        return roleMapper.insertRole(role);
     }
 }

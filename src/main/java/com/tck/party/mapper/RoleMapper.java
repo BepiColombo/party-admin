@@ -15,14 +15,12 @@ public interface RoleMapper {
      * @param userId
      * @param roleId
      */
-    @Insert("INSERT INTO p_role_user VALUES (#{userId},#{roleId})")
     void insertUserRole(Integer userId, Integer roleId);
 
     /**
      * 查找所有的角色记录
      * @return
      */
-    @Select("SELECT id as roleId, role_name as roleName, role_description as roleDescription FROM P_ROLE")
     List<Role> findRoleList();
 
     /**
@@ -31,6 +29,26 @@ public interface RoleMapper {
      * @param roleId
      * @return
      */
-    @Update(" UPDATE p_role_user SET role_id = #{roleId} WHERE user_id = #{userId}")
     int updateUserRole(Integer userId,Integer roleId);
+
+    /**
+     * 插入一条角色记录
+     * @param role
+     * @return
+     */
+    int insertRole(Role role);
+
+    /**
+     * 更新角色
+     * @param role
+     * @return
+     */
+    int updateRole(Role role);
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    int deleteRole(Integer roleId);
 }
