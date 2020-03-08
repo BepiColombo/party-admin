@@ -12,4 +12,12 @@ public interface RoleService {
      * @return
      */
     List<Role> findRoleList();
+
+    /**
+     * 更新用户角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    int updateUserRole(Integer userId,Integer roleId);
 }

@@ -2,7 +2,7 @@ package com.tck.party.shiro;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.tck.party.common.domain.PartyConstant;
+import com.tck.party.common.config.PartyConstant;
 import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.utils.PartyUtils;
 import org.apache.commons.lang3.StringUtils;

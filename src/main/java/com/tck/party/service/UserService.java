@@ -1,8 +1,9 @@
 package com.tck.party.service;
 
 import com.tck.party.common.vo.PageResult;
+import com.tck.party.dto.UserManageParam;
 import com.tck.party.entity.User;
-import com.tck.party.query.UserQuery;
+import com.tck.party.dto.UserQueryParam;
 
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public interface UserService {
      *
      * @return
      */
-    PageResult<User> findUsers(UserQuery userQuery);
+    PageResult<User> findUsers(UserQueryParam userQueryParam);
 
 
     /**
@@ -59,9 +60,9 @@ public interface UserService {
     int deleteUserById(Integer userId);
 
     /**
-     * 更新用户
-     * @param user
+     * 更新用户(管理员管理时)
+     * @param userManageParam
      * @return
      */
-    int updateUser(User user);
+    int updateUserByManager(UserManageParam userManageParam);
 }

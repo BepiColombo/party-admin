@@ -23,5 +23,13 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.findRoleList();
     }
 
-    ;
+    /**
+     * 更新用户角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    public int updateUserRole(Integer userId,Integer roleId){
+        return roleMapper.updateUserRole(userId,roleId);
+    }
 }

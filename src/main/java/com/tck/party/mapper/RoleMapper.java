@@ -1,5 +1,6 @@
 package com.tck.party.mapper;
 
+import com.tck.party.dto.UserManageParam;
 import com.tck.party.entity.Role;
 import org.apache.ibatis.annotations.*;
 
@@ -23,4 +24,13 @@ public interface RoleMapper {
      */
     @Select("SELECT id as roleId, role_name as roleName, role_description as roleDescription FROM P_ROLE")
     List<Role> findRoleList();
+
+    /**
+     * 更新用户角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    @Update(" UPDATE p_role_user SET role_id = #{roleId} WHERE user_id = #{userId}")
+    int updateUserRole(Integer userId,Integer roleId);
 }

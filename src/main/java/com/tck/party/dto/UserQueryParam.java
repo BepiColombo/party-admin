@@ -1,14 +1,11 @@
-package com.tck.party.query;
+package com.tck.party.dto;
 
-import com.tck.party.common.domain.BasePageQuery;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.security.Timestamp;
-import java.util.Date;
 
 @Data
-public class UserQuery extends BasePageQuery implements Serializable  {
+public class UserQueryParam extends BasePageQuery implements Serializable  {
     private static final long serialVersionUID = 7031744276458365785L;
 
     //模糊搜索关键字

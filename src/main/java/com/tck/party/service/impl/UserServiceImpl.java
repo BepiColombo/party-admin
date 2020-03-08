@@ -2,12 +2,13 @@ package com.tck.party.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.tck.party.common.vo.PageResult;
+import com.tck.party.dto.UserManageParam;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.mapper.RoleMapper;
 import com.tck.party.mapper.UserMapper;
-import com.tck.party.query.UserQuery;
+import com.tck.party.dto.UserQueryParam;
 import com.tck.party.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,9 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public PageResult<User> findUsers(UserQuery userQuery) {
-        PageHelper.startPage(userQuery.getPageNum(), userQuery.getPageSize());
-        List<User> users = userMapper.findUsers(userQuery);
+    public PageResult<User> findUsers(UserQueryParam userQueryParam) {
+        PageHelper.startPage(userQueryParam.getPageNum(), userQueryParam.getPageSize());
+        List<User> users = userMapper.findUsers(userQueryParam);
         PageResult<User> pageResult = new PageResult<>(users);
         return pageResult;
     }
@@ -106,13 +107,13 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 更新用户
+     * 更新用户(管理员管理时)
      *
-     * @param user
+     * @param userManageParam
      * @return
      */
-    public int updateUser(User user) {
-        int res = userMapper.updateUser(user);
+    public int updateUserByManager(UserManageParam userManageParam) {
+        int res = userMapper.updateUserByManager(userManageParam);
         return res;
     }
 

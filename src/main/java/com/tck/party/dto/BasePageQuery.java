@@ -1,4 +1,4 @@
-package com.tck.party.common.domain;
+package com.tck.party.dto;
 
 import lombok.Data;
 

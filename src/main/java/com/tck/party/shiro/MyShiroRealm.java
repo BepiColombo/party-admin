@@ -1,6 +1,6 @@
 package com.tck.party.shiro;
 
-import com.tck.party.common.domain.PartyConstant;
+import com.tck.party.common.config.PartyConstant;
 import com.tck.party.common.service.RedisService;
 import com.tck.party.common.utils.CodeMsg;
 import com.tck.party.common.utils.HttpContextUtil;

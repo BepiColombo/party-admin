@@ -1,6 +1,6 @@
 package com.tck.party.common.utils;
 
-import com.tck.party.common.domain.PartyConstant;
+import com.tck.party.common.config.PartyConstant;
 
 public class PartyUtils {
 

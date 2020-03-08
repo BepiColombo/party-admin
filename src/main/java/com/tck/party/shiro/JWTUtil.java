@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.tck.party.common.domain.PartyConstant;
+import com.tck.party.common.config.PartyConstant;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;

@@ -3,7 +3,7 @@ package com.tck.party.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tck.party.common.controller.BaseController;
 import com.tck.party.common.domain.ActiveUser;
-import com.tck.party.common.domain.PartyConstant;
+import com.tck.party.common.config.PartyConstant;
 import com.tck.party.common.service.RedisService;
 import com.tck.party.common.utils.*;
 import com.tck.party.common.vo.PartyResponse;

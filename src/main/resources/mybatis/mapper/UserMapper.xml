@@ -29,7 +29,7 @@
     </resultMap>
 
     <!--    查找所有的用户-->
-    <select id="findUsers" resultMap="userResultMap" parameterType="UserQuery">
+    <select id="findUsers" resultMap="userResultMap" parameterType="UserQueryParam">
         SELECT
         u.*,
         r.id AS role_id,
@@ -65,7 +65,7 @@
     </select>
 
     <!--    获取用户详情-->
-    <select id="findUserDetail" resultMap="userResultMap" parameterType="UserQuery">
+    <select id="findUserDetail" resultMap="userResultMap" parameterType="UserQueryParam">
         SELECT
             u.*,
             r.id AS role_id,
@@ -151,6 +151,18 @@
             </if>
             <if test="address !=null and address !=''">
                 u.address = #{address},
+            </if>
+        </trim>
+        where
+        u.id = #{userId}
+    </update>
+
+    <!--    更新用户信息（管理员管理时）-->
+    <update id="updateUserByManager">
+        update p_user u
+        <trim prefix="set" suffixOverrides=",">
+            <if test="isValid !=null">
+                u.is_valid = #{isValid},
             </if>
         </trim>
         where
