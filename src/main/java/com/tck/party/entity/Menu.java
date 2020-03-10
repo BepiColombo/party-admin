@@ -22,4 +22,6 @@ public class Menu implements Serializable {
     private String perms;
 
     private String url;
+
+    private Integer menuType;
 }

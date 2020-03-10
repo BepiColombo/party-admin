@@ -2,12 +2,13 @@ package com.tck.party.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tck.party.common.controller.BaseController;
-import com.tck.party.common.domain.ActiveUser;
+import com.tck.party.common.base.ActiveUser;
 import com.tck.party.common.config.PartyConstant;
 import com.tck.party.common.service.RedisService;
 import com.tck.party.common.utils.*;
-import com.tck.party.common.vo.PartyResponse;
-import com.tck.party.dto.LoginParam;
+import com.tck.party.common.base.PartyResponse;
+import com.tck.party.service.dto.UserDto;
+import com.tck.party.vo.LoginParam;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.User;
 import com.tck.party.service.MenuService;
@@ -85,7 +86,6 @@ public class LoginController extends BaseController {
     /**
      * 获取用户详情信息
      *
-     * @param token
      * @return
      * @throws Exception
      */
@@ -93,7 +93,7 @@ public class LoginController extends BaseController {
     public PartyResponse getUserInfo(@RequestHeader("Authorization") String token) throws Exception {
         String decryptToken = PartyUtils.decryptToken(token);
         String username = JWTUtil.getUsername(decryptToken);
-        User user = userService.findUserDetail(username);
+        UserDto user = userService.findUserDetail(username);
         List<Menu> menus = menuService.findUserMenus(username);
         Map<String, Object> result = new HashMap<>();
         result.put("userInfo", user);

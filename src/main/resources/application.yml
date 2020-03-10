@@ -25,7 +25,7 @@ spring:
 
 
 mybatis:
-  type-aliases-package: com.tck.party.entity,com.tck.party.dto
+  type-aliases-package: com.tck.party.entity,com.tck.party.service.dto,com.tck.party.vo
   mapper-locations: classpath*:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true # 驼峰命名规范 如：数据库字段是  order_id 那么 实体字段就要写成 orderId

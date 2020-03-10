@@ -9,6 +9,12 @@
         <result column="menu_name" property="menuName"/>
         <result column="url" property="url"/>
         <result column="perms" property="perms"/>
+        <result column="menu_type" property="menuType"/>
+    </resultMap>
+
+    <resultMap id="roleMenuResultMap" type="RoleMenu">
+        <result column="menu_id" property="menuId"/>
+        <result column="role_id" property="roleId"/>
     </resultMap>
 
     <select id="findUserMenus" resultMap="menuResultMap">
@@ -28,9 +34,14 @@
         SELECT * from p_menu;
     </select>
 
+    <!--查找某一角色id对应的菜单-->
+    <select id="findMenusByRoleId" resultMap="roleMenuResultMap">
+        select * from p_role_menu where role_id=#{roleId}
+    </select>
+
     <!--    插入一条菜单记录-->
     <insert id="insertMenu" useGeneratedKeys="true" keyProperty="menuId">
-        INSERT INTO p_menu ( parent_id, menu_name, perms, url )
+        INSERT INTO p_menu ( parent_id, menu_name, perms, url, type)
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="parentId!=null">
@@ -44,6 +55,9 @@
             </if>
             <if test="url!=null and url!=''">
                 #{url},
+            </if>
+            <if test="menuType!=null">
+                #{menuType},
             </if>
         </trim>
     </insert>
@@ -68,6 +82,9 @@
             </if>
             <if test="url !=null">
                 url = #{url},
+            </if>
+            <if test="menuType !=null">
+                menu_type = #{menuType},
             </if>
         </trim>
         where

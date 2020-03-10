@@ -1,4 +1,4 @@
-package com.tck.party.common.domain;
+package com.tck.party.common.base;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tck.party.common.utils.DateUtil;

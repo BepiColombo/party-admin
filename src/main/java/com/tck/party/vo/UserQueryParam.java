@@ -1,5 +1,6 @@
-package com.tck.party.dto;
+package com.tck.party.vo;
 
+import com.tck.party.common.base.BasePageQuery;
 import lombok.Data;
 
 import java.io.Serializable;

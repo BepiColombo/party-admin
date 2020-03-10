@@ -58,4 +58,23 @@
         where
         id = #{roleId}
     </update>
+
+    <!--    批量插入role-menu记录-->
+    <insert id="insertRoleMenuBatch" parameterType="java.util.List">
+        INSERT INTO p_role_menu (role_id, menu_id)
+        VALUES
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            ( #{item.roleId}, #{item.menuId})
+        </foreach>
+    </insert>
+
+    <!--    批量删除role-menu记录-->
+    <delete id="deleteRoleMenuBatch" parameterType="java.util.List">
+        DELETE from p_role_menu where role_id=#{roleId} AND menu_id in
+        <foreach collection="ids" item="item" index="index"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

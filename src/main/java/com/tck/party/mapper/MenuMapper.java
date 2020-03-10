@@ -1,6 +1,7 @@
 package com.tck.party.mapper;
 
 import com.tck.party.entity.Menu;
+import com.tck.party.entity.RoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -10,6 +11,14 @@ import java.util.List;
 public interface MenuMapper {
 
     List<Menu> findUserMenus(String username);
+
+
+    /**
+     * 通过roleId获取菜单
+     * @param roleId
+     * @return
+     */
+    List<RoleMenu> findMenusByRoleId(Integer roleId);
 
     /**
      * 获取所有的menu

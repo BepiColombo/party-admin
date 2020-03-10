@@ -1,6 +1,7 @@
 package com.tck.party.service.impl;
 
 import com.tck.party.entity.Menu;
+import com.tck.party.entity.RoleMenu;
 import com.tck.party.mapper.MenuMapper;
 import com.tck.party.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,16 @@ public class MenuServiceImpl implements MenuService {
      */
     public List<Menu> findUserMenus(String username) {
         List<Menu> menus = menuMapper.findUserMenus(username);
+        return menus;
+    }
+
+    /**
+     * 通过roleId查找菜单
+     * @param roleId
+     * @return
+     */
+    public List<RoleMenu> findMenusByRoleId(Integer roleId) {
+        List<RoleMenu> menus = menuMapper.findMenusByRoleId(roleId);
         return menus;
     }
 
@@ -56,6 +67,7 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 插入一条菜单记录
+     *
      * @param menu
      * @return
      */

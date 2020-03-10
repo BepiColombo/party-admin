@@ -1,7 +1,7 @@
 package com.tck.party.controller;
 
 import com.tck.party.common.utils.CodeMsg;
-import com.tck.party.common.vo.PartyResponse;
+import com.tck.party.common.base.PartyResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;

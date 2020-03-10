@@ -2,14 +2,15 @@ package com.tck.party.controller;
 
 
 import com.tck.party.common.controller.BaseController;
-import com.tck.party.common.vo.PageResult;
-import com.tck.party.dto.UserManageParam;
+import com.tck.party.common.base.PageResult;
+import com.tck.party.service.dto.UserDto;
+import com.tck.party.vo.UserManageParam;
 import com.tck.party.entity.User;
-import com.tck.party.dto.UserQueryParam;
+import com.tck.party.vo.UserQueryParam;
 import com.tck.party.service.impl.RoleServiceImpl;
 import com.tck.party.service.impl.UserServiceImpl;
 import com.tck.party.common.utils.CodeMsg;
-import com.tck.party.common.vo.PartyResponse;
+import com.tck.party.common.base.PartyResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Validated
 @RestController
@@ -43,8 +45,8 @@ public class UserController extends BaseController {
      */
     @RequiresPermissions("user:view")
     @PostMapping(value = "getUserList")
-    public PartyResponse<PageResult<User>> findAllUser(@RequestBody @Valid UserQueryParam userQueryParam) {
-        PageResult<User> users = userService.findUsers(userQueryParam);
+    public PartyResponse<PageResult<UserDto>> findAllUser(@RequestBody @Valid UserQueryParam userQueryParam) {
+        PageResult<UserDto> users = userService.findUsers(userQueryParam);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg(), users);
     }
 
@@ -76,12 +78,13 @@ public class UserController extends BaseController {
     /**
      * 删除用户
      *
-     * @param userId
+     * @param data
      * @return
      */
     @RequiresPermissions("user:delete")
     @PostMapping(value = "deleteUser")
-    public PartyResponse deleteUser(@RequestParam("userId") Integer userId) {
+    public PartyResponse deleteUser(@RequestBody Map<String,Integer> data) {
+        Integer userId = data.get("userId");
         int res = userService.deleteUserById(userId);
         if (res == 1) {
             return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.DEL_ACTION_SUCCESS.getMsg());

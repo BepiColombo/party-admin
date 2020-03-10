@@ -2,7 +2,7 @@ package com.tck.party.controller;
 
 
 import com.tck.party.common.utils.CodeMsg;
-import com.tck.party.common.vo.PartyResponse;
+import com.tck.party.common.base.PartyResponse;
 import com.tck.party.entity.Menu;
 import com.tck.party.service.MenuService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

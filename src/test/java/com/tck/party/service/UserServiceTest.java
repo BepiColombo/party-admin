@@ -1,8 +1,6 @@
 package com.tck.party.service;
 
 
-import com.tck.party.common.vo.PageResult;
-import com.tck.party.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

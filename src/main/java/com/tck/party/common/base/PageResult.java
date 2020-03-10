@@ -1,4 +1,4 @@
-package com.tck.party.common.vo;
+package com.tck.party.common.base;
 
 import com.github.pagehelper.Page;
 import lombok.Data;

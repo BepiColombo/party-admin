@@ -1,7 +1,7 @@
 package com.tck.party.common.service.impl;
 
 
-import com.tck.party.common.domain.RedisInfo;
+import com.tck.party.common.base.RedisInfo;
 import com.tck.party.common.exception.RedisConnectException;
 import com.tck.party.common.function.JedisExecutor;
 import com.tck.party.common.service.RedisService;

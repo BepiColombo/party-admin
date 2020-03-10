@@ -1,6 +1,6 @@
 package com.tck.party.common.utils;
 
-import com.tck.party.common.domain.Tree;
+import com.tck.party.common.base.Tree;
 
 import java.util.ArrayList;
 import java.util.List;

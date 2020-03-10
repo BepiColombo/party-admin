@@ -1,10 +1,11 @@
 package com.tck.party.mapper;
 
-import com.tck.party.dto.UserManageParam;
+import com.tck.party.service.dto.UserDto;
+import com.tck.party.vo.UserManageParam;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
-import com.tck.party.dto.UserQueryParam;
+import com.tck.party.vo.UserQueryParam;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface UserMapper {
 //            @Result(column = "update_time", property = "updateTime"),
 //            @Result(column = "id", property = "role", many = @Many(fetchType = FetchType.LAZY, select = "com.tck.party.mapper.RoleMapper.findByUserId")),
 //            @Result(column = "org_id", property = "org", one = @One(fetchType = FetchType.EAGER, select = "com.tck.party.mapper.OrgMapper.findUserOrg")),})
-    List<User> findUsers(UserQueryParam userQueryParam);
+    List<UserDto> findUsers(UserQueryParam userQueryParam);
 
 
     /**
@@ -39,7 +40,7 @@ public interface UserMapper {
      *
      * @return
      */
-    User findUserDetail(String username);
+    UserDto findUserDetail(String username);
 
 
     /**

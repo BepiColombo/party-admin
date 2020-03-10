@@ -1,6 +1,7 @@
 package com.tck.party.service;
 
 import com.tck.party.entity.Menu;
+import com.tck.party.entity.RoleMenu;
 
 import java.util.List;
 
@@ -11,6 +12,14 @@ public interface MenuService {
      * @return
      */
     List<Menu> findUserMenus(String username);
+
+
+    /**
+     * 获取菜单通过roleid
+     * @param roleId
+     * @return
+     */
+    List<RoleMenu> findMenusByRoleId(Integer roleId);
 
     /**
      * 获取所有的menu

@@ -23,7 +23,7 @@ public class CodeMsg {
     public static CodeMsg AUTH_DENY = new CodeMsg(400004, "权限不足");
 
     public static CodeMsg BAD_REQUEST = new CodeMsg(500000, "bad_request");
-    public static CodeMsg SERVER_ERROR = new CodeMsg(500001, "服务端异常");
+    public static CodeMsg SERVER_ERROR = new CodeMsg(500001, "请求出错");
     public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常");
     public static CodeMsg DEL_ACTION_FAIL = new CodeMsg(500003, "删除失败");
     public static CodeMsg DEL_ACTION_SUCCESS = new CodeMsg(500004, "删除成功");

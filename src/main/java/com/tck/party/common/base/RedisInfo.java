@@ -1,4 +1,4 @@
-package com.tck.party.common.domain;
+package com.tck.party.common.base;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,14 +1,15 @@
 package com.tck.party.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.tck.party.common.vo.PageResult;
-import com.tck.party.dto.UserManageParam;
+import com.tck.party.common.base.PageResult;
+import com.tck.party.service.dto.UserDto;
+import com.tck.party.vo.UserManageParam;
 import com.tck.party.entity.Menu;
 import com.tck.party.entity.Role;
 import com.tck.party.entity.User;
 import com.tck.party.mapper.RoleMapper;
 import com.tck.party.mapper.UserMapper;
-import com.tck.party.dto.UserQueryParam;
+import com.tck.party.vo.UserQueryParam;
 import com.tck.party.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,10 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public PageResult<User> findUsers(UserQueryParam userQueryParam) {
+    public PageResult<UserDto> findUsers(UserQueryParam userQueryParam) {
         PageHelper.startPage(userQueryParam.getPageNum(), userQueryParam.getPageSize());
-        List<User> users = userMapper.findUsers(userQueryParam);
-        PageResult<User> pageResult = new PageResult<>(users);
+        List<UserDto> users = userMapper.findUsers(userQueryParam);
+        PageResult<UserDto> pageResult = new PageResult<>(users);
         return pageResult;
     }
 
@@ -54,8 +55,8 @@ public class UserServiceImpl implements UserService {
      *
      * @return
      */
-    public User findUserDetail(String username) {
-        User user = userMapper.findUserDetail(username);
+    public UserDto findUserDetail(String username) {
+        UserDto user = userMapper.findUserDetail(username);
         return user;
     }
 

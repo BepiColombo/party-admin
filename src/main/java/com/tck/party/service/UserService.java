@@ -1,9 +1,10 @@
 package com.tck.party.service;
 
-import com.tck.party.common.vo.PageResult;
-import com.tck.party.dto.UserManageParam;
+import com.tck.party.common.base.PageResult;
+import com.tck.party.service.dto.UserDto;
+import com.tck.party.vo.UserManageParam;
 import com.tck.party.entity.User;
-import com.tck.party.dto.UserQueryParam;
+import com.tck.party.vo.UserQueryParam;
 
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public interface UserService {
      *
      * @return
      */
-    PageResult<User> findUsers(UserQueryParam userQueryParam);
+    PageResult<UserDto> findUsers(UserQueryParam userQueryParam);
 
 
     /**
@@ -27,7 +28,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    User findUserDetail(String username);
+    UserDto findUserDetail(String username);
 
     /**
      * 通过用户名获取用户角色集

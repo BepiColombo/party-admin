@@ -7,6 +7,32 @@
         <id column="id" property="userId"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="birthday" property="birthday"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <association property="org" column="org_id">
+            <id property="orgId" column="org_id"></id>
+            <result property="orgName" column="org_name"></result>
+            <result property="orgAddress" column="org_address"></result>
+            <result property="parentId" column="parent_id"></result>
+        </association>
+        <association property="role" column="id">
+            <id property="roleId" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleDescription" column="role_description"></result>
+            <result property="roleId" column="role_id"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="userDtoResultMap" type="UserDto">
+        <id column="id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
         <result column="sex" property="sex"/>
         <result column="birthday" property="birthday"/>
         <result column="is_valid" property="isValid"/>
@@ -65,7 +91,7 @@
     </select>
 
     <!--    获取用户详情-->
-    <select id="findUserDetail" resultMap="userResultMap" parameterType="UserQueryParam">
+    <select id="findUserDetail" resultMap="userDtoResultMap" parameterType="UserQueryParam">
         SELECT
             u.*,
             r.id AS role_id,

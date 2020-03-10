@@ -1,4 +1,4 @@
-package com.tck.party.dto;
+package com.tck.party.common.base;
 
 import lombok.Data;
 

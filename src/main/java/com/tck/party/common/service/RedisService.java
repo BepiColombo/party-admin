@@ -1,6 +1,6 @@
 package com.tck.party.common.service;
 
-import com.tck.party.common.domain.RedisInfo;
+import com.tck.party.common.base.RedisInfo;
 import com.tck.party.common.exception.RedisConnectException;
 
 import java.util.List;
