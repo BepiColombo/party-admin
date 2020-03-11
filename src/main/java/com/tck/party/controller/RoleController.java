@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static com.tck.party.common.utils.PartyUtils.deepCopy;
 
 @RestController
 @RequestMapping("role")

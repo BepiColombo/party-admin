@@ -42,3 +42,12 @@ logging:
 #  level:
 #    com.tck.party.mapper: debug
 
+#阿里云oss
+aliyun-oss:
+  #bucket名称
+  bucketApp: bepicolombo
+  domainApp: bepicolombo.oss-cn-beijing.aliyuncs.com
+  region: oss-cn-beijing
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: *
+  accessKeySecret: *

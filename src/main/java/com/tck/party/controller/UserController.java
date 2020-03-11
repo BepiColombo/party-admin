@@ -3,6 +3,7 @@ package com.tck.party.controller;
 
 import com.tck.party.common.controller.BaseController;
 import com.tck.party.common.base.PageResult;
+import com.tck.party.service.FileService;
 import com.tck.party.service.dto.UserDto;
 import com.tck.party.vo.UserManageParam;
 import com.tck.party.entity.User;
@@ -19,8 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -37,6 +40,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private RoleServiceImpl roleService;
+
+    @Autowired
+    private FileService fileService;
 
     /**
      * 获取所有的用户
@@ -83,7 +89,7 @@ public class UserController extends BaseController {
      */
     @RequiresPermissions("user:delete")
     @PostMapping(value = "deleteUser")
-    public PartyResponse deleteUser(@RequestBody Map<String,Integer> data) {
+    public PartyResponse deleteUser(@RequestBody Map<String, Integer> data) {
         Integer userId = data.get("userId");
         int res = userService.deleteUserById(userId);
         if (res == 1) {
@@ -93,6 +99,12 @@ public class UserController extends BaseController {
             logger.error(message + " : " + userId);
             return new PartyResponse(CodeMsg.DEL_ACTION_FAIL.getCode(), CodeMsg.DEL_ACTION_FAIL.getMsg());
         }
+    }
 
+    @RequestMapping("/upload")
+    public PartyResponse handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
+        String res = fileService.uploadFile(file);
+        System.out.println(res);
+        return new PartyResponse(CodeMsg.SUCCESS.getCode(), "上传成功", res);
     }
 }
