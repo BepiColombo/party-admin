@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tck.party.mapper.ArticleMapper">
+    <resultMap id="articleResultMap" type="Article">
+        <result column="article_id" property="articleId"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_author" property="articleAuthor"/>
+        <result column="article_thumbnail" property="articleThumbnail"/>
+        <result column="article_content" property="articleContent"/>
+        <result column="article_outline" property="articleOutline"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+
+    <!--查找所有的文章-->
+    <select id="findArticles" resultMap="articleResultMap">
+        SELECT
+        *
+        FROM
+        `p_article`
+        WHERE 1=1
+        <if test="keyword!=null and keyword !=''">
+            AND article_outline like CONCAT ('%', #{keyword},'%')
+        </if>
+        <if test="startTime!=null and startTime !=''">
+            AND UNIX_TIMESTAMP(create_time) &gt;= UNIX_TIMESTAMP(#{startTime})+ 60*60*24
+        </if>
+        <if test="endTime!=null and endTime !=''">
+            AND UNIX_TIMESTAMP(create_time) &lt;= UNIX_TIMESTAMP(#{endTime})+ 60*60*24
+        </if>
+    </select>
+
+    <!--通过id查找文章-->
+    <select id="findById" resultMap="articleResultMap">
+        SELECT
+        *
+        FROM
+        `p_article`
+        WHERE article_id = #{articleId}
+    </select>
+
+    <insert id="insertArticle" useGeneratedKeys="true" keyProperty="articleId">
+        INSERT INTO p_article (article_title,article_author, article_thumbnail, article_content,article_outline)
+        VALUES (#{articleTitle},#{articleAuthor},#{articleThumbnail},#{articleContent},#{articleOutline})
+    </insert>
+
+    <!--    删除文章-->
+    <delete id="deleteArticle">
+          DELETE FROM p_article WHERE article_id = #{articleId}
+    </delete>
+
+    <!--    更新文章信息-->
+    <update id="updateArticle">
+        update p_article
+        <trim prefix="set" suffixOverrides=",">
+
+            <if test="articleTitle !=null and articleTitle !=''">
+                article_title = #{articleTitle},
+            </if>
+            <if test="articleThumbnail !=null and articleThumbnail !=''">
+                article_thumbnail = #{articleThumbnail},
+            </if>
+            <if test="articleContent !=null and articleContent !=''">
+                article_content = #{articleContent},
+            </if>
+            <if test="articleOutline !=null and articleOutline !=''">
+                article_outline = #{articleOutline},
+            </if>
+        </trim>
+        where
+        article_id = #{articleId}
+    </update>
+</mapper>

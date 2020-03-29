@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -30,8 +28,8 @@ public class FileServiceImpl implements FileService {
         try {
             return aliyunOssUtil.uploadFile(file, aliyunOSSProperties.getBucketApp(), null, aliyunOSSProperties.getDomainApp());
         } catch (Exception e) {
-            logger.error("uploadImg error e:{}", e);
-            throw new FileException("uploadImg error");
+            logger.error("uploadFile error e:{}", e);
+            throw new FileException("uploadFile error");
         }
     }
 }

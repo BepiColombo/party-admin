@@ -75,11 +75,16 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     public int insertRole(Role role) {
-        return roleMapper.insertRole(role);
+        int res = roleMapper.insertRole(role);
+        if (res == 1) {
+            return role.getRoleId();
+        } else {
+            return 0;
+        }
     }
 
 
-    @Transactional(rollbackFor=Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean batchActionRoleMenu(Integer roleId, List<Integer> menuIds) throws Exception {
         //现有的数据库中roleId对应的已有的menuId集合，并转化成List<Integer>的结构
         List<RoleMenu> menus = menuService.findMenusByRoleId(roleId);

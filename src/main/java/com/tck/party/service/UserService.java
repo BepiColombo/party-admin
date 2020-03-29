@@ -66,4 +66,11 @@ public interface UserService {
      * @return
      */
     int updateUserByManager(UserManageParam userManageParam);
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
 }

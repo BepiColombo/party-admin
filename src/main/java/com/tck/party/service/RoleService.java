@@ -66,6 +66,7 @@ public interface RoleService {
      */
     int insertRoleMenuBatch(Integer roleId, List<Integer> menuIds);
 
+
     /**
      * 批量删除role-menu记录
      *

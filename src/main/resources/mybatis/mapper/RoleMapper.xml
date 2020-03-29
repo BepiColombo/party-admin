@@ -4,7 +4,7 @@
 <mapper namespace="com.tck.party.mapper.RoleMapper">
 
     <resultMap id="roleResultMap" type="Role">
-        <result column="id" property="roleId"/>
+        <result column="role_id" property="roleId"/>
         <result column="role_name" property="roleName"/>
         <result column="role_description" property="roleDescription"/>
     </resultMap>
@@ -15,8 +15,8 @@
     </select>
 
 
-    <!--    插入一条菜单记录-->
-    <insert id="insertRole" useGeneratedKeys="true" keyProperty="id">
+    <!--    插入一条角色记录-->
+    <insert id="insertRole" useGeneratedKeys="true" keyProperty="roleId">
         INSERT INTO p_role ( role_name, role_description )
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -31,11 +31,11 @@
 
     <!--    删除角色-->
     <delete id="deleteRole">
-          DELETE FROM p_role WHERE id = #{roleId}
+          DELETE FROM p_role WHERE role_id = #{roleId}
     </delete>
 
     <!--    插入一条用户-角色记录-->
-    <insert id="insertUserRole">
+    <insert id="insertUserRole" >
         INSERT INTO p_role_user VALUES (#{userId},#{roleId})
     </insert>
 
@@ -49,14 +49,14 @@
         update p_role
         <trim prefix="set" suffixOverrides=",">
             <if test="roleName !=null and roleName!=''">
-                role_name = #{parentId},
+                role_name = #{roleName},
             </if>
             <if test="roleDescription !=null and roleDescription !=''">
                 role_description = #{roleDescription},
             </if>
         </trim>
         where
-        id = #{roleId}
+        role_id = #{roleId}
     </update>
 
     <!--    批量插入role-menu记录-->
@@ -68,6 +68,7 @@
             ( #{item.roleId}, #{item.menuId})
         </foreach>
     </insert>
+
 
     <!--    批量删除role-menu记录-->
     <delete id="deleteRoleMenuBatch" parameterType="java.util.List">

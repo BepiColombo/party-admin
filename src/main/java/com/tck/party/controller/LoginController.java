@@ -84,6 +84,18 @@ public class LoginController extends BaseController {
     }
 
     /**
+     * 注销登录
+     *
+     * @param token
+     * @return
+     */
+    @PostMapping(value = "logout")
+    public PartyResponse logout(@RequestHeader(name = "Authorization") String token) {
+        System.out.println(token);
+        return new PartyResponse(CodeMsg.SUCCESS.getCode(), "注销成功", "");
+    }
+
+    /**
      * 获取用户详情信息
      *
      * @return
@@ -99,6 +111,21 @@ public class LoginController extends BaseController {
         result.put("userInfo", user);
         result.put("menus", menus);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), "", result);
+    }
+
+    /**
+     * 更新个人资料
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "updateProfile")
+    public PartyResponse updateProfile(@RequestBody User user) {
+        int res = userService.updateUser(user);
+        if (res == 1) {
+            return new PartyResponse(CodeMsg.SUCCESS.getCode(), "更新成功", "");
+        } else {
+            return new PartyResponse(CodeMsg.UPDATE_ACTION_FAIL.getCode(), CodeMsg.UPDATE_ACTION_FAIL.getMsg(), "");
+        }
     }
 
     /**

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -70,7 +69,7 @@ public class UserController extends BaseController {
         int user_res = userService.updateUserByManager(userManageParam);
         int role_res = roleService.updateUserRole(userManageParam.getUserId(), userManageParam.getRoleId());
         if (user_res == 1 && role_res == 1) {
-            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.UPDATE_ACTION_SUCCESS.getMsg());
+            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg());
         } else {
             message = "更新用户失败";
             logger.error(message + ":" + userManageParam.getUserId());
@@ -93,7 +92,7 @@ public class UserController extends BaseController {
         Integer userId = data.get("userId");
         int res = userService.deleteUserById(userId);
         if (res == 1) {
-            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.DEL_ACTION_SUCCESS.getMsg());
+            return new PartyResponse(CodeMsg.SUCCESS.getCode(), CodeMsg.SUCCESS.getMsg());
         } else {
             message = "删除用户失败";
             logger.error(message + " : " + userId);
@@ -104,7 +103,6 @@ public class UserController extends BaseController {
     @RequestMapping("/upload")
     public PartyResponse handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         String res = fileService.uploadFile(file);
-        System.out.println(res);
         return new PartyResponse(CodeMsg.SUCCESS.getCode(), "上传成功", res);
     }
 }

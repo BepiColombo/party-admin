@@ -6,6 +6,7 @@
     <resultMap id="userResultMap" type="User">
         <id column="id" property="userId"/>
         <result column="username" property="username"/>
+        <result column="avatar" property="avatar"/>
         <result column="nickname" property="nickname"/>
         <result column="password" property="password"/>
         <result column="sex" property="sex"/>
@@ -33,6 +34,7 @@
         <id column="id" property="userId"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
+        <result column="avatar" property="avatar"/>
         <result column="sex" property="sex"/>
         <result column="birthday" property="birthday"/>
         <result column="is_valid" property="isValid"/>
@@ -58,7 +60,7 @@
     <select id="findUsers" resultMap="userResultMap" parameterType="UserQueryParam">
         SELECT
         u.*,
-        r.id AS role_id,
+        r.role_id AS role_id,
         r.role_name AS role_name,
         r.role_description AS role_description,
         org.id AS org_id,
@@ -68,14 +70,14 @@
         FROM
         p_user u
         LEFT JOIN p_role_user ru ON ru.user_id = u.id
-        LEFT JOIN p_role r ON r.id = ru.role_id
+        LEFT JOIN p_role r ON r.role_id = ru.role_id
         LEFT JOIN p_organization org ON org.id = u.org_id
         WHERE 1=1
         <if test="keyword!=null and keyword !=''">
             AND CONCAT(username,nickname,phone) like CONCAT ('%', #{keyword},'%')
         </if>
         <if test="roleType!=null">
-            AND r.id = #{roleType}
+            AND r.role_id = #{roleType}
         </if>
         <if test="startTime!=null and startTime !=''">
             AND UNIX_TIMESTAMP(create_time) &gt;= UNIX_TIMESTAMP(#{startTime})+ 60*60*24
@@ -94,7 +96,7 @@
     <select id="findUserDetail" resultMap="userDtoResultMap" parameterType="UserQueryParam">
         SELECT
             u.*,
-            r.id AS role_id,
+            r.role_id AS role_id,
             r.role_name AS role_name,
             r.role_description AS role_description,
             org.id AS org_id,
@@ -104,7 +106,7 @@
         FROM
             p_user u
             LEFT JOIN p_role_user ru ON ru.user_id = u.id
-            LEFT JOIN p_role r ON r.id = ru.role_id
+            LEFT JOIN p_role r ON r.role_id = ru.role_id
             LEFT JOIN p_organization org ON org.id = u.org_id
         WHERE
             username = #{username}
@@ -112,20 +114,20 @@
 
     <!--    插入一条用户记录-->
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        INSERT INTO p_user ( username, password, nickname, sex, birthday, phone, address )
+        INSERT INTO p_user ( avatar,username, password, nickname, sex, birthday, phone, address )
         VALUES
-            (#{username},#{password},#{nickname},#{sex},#{birthday},#{phone},#{address})
+            (#{avatar},#{username},#{password},#{nickname},#{sex},#{birthday},#{phone},#{address})
     </insert>
 
     <!--    查找用户的角色-->
     <select id="findUserRole" resultType="Role">
         SELECT
-            r.id AS roleId,
+            r.role_id AS roleId,
             r.role_name AS roleName,
             r.role_description AS roleDescription
         FROM
             p_role r
-            LEFT JOIN p_role_user ru ON ( r.id = ru.role_id )
+            LEFT JOIN p_role_user ru ON ( r.role_id = ru.role_id )
             LEFT JOIN p_user u ON ( ru.user_id = u.id )
         WHERE
             u.username = #{username}
@@ -138,8 +140,8 @@
         FROM
         p_menu m
         LEFT JOIN p_role_menu rm ON ( rm.menu_id = m.menu_id )
-        LEFT JOIN p_role r ON ( r.id = rm.role_id )
-        LEFT JOIN p_role_user ru ON ( ru.role_id = r.id )
+        LEFT JOIN p_role r ON ( r.role_id = rm.role_id )
+        LEFT JOIN p_role_user ru ON ( ru.role_id = r.role_id )
         LEFT JOIN p_user u ON ( u.id = ru.user_id )
         WHERE
         u.username = #{username}  AND m.perms <![CDATA[!= ]]> ""
@@ -156,6 +158,9 @@
         <trim prefix="set" suffixOverrides=",">
             <if test="org.orgId !=null">
                 u.org_id = #{org.orgId},
+            </if>
+            <if test="avatar !=null and avatar!=''">
+                u.avatar = #{avatar},
             </if>
             <if test="password !=null and password !=''">
                 u.password = #{password},

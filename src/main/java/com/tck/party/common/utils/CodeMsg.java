@@ -26,14 +26,12 @@ public class CodeMsg {
     public static CodeMsg SERVER_ERROR = new CodeMsg(500001, "请求出错");
     public static CodeMsg BIND_ERROR = new CodeMsg(500002, "参数异常");
     public static CodeMsg DEL_ACTION_FAIL = new CodeMsg(500003, "删除失败");
-    public static CodeMsg DEL_ACTION_SUCCESS = new CodeMsg(500004, "删除成功");
-    public static CodeMsg UPDATE_ACTION_FAIL = new CodeMsg(500005, "更新失败");
-    public static CodeMsg UPDATE_ACTION_SUCCESS = new CodeMsg(500006, "更新成功");
+    public static CodeMsg UPDATE_ACTION_FAIL = new CodeMsg(500004, "更新失败");
+    public static CodeMsg ADD_ACTION_FAIL = new CodeMsg(500005, "添加失败");
 
     public static CodeMsg USER_EXIST = new CodeMsg(500100, "用户名已注册");
     public static CodeMsg USER_NOT_EXIST = new CodeMsg(500101, "用户名不存在");
     public static CodeMsg USER_PWD_ERR = new CodeMsg(500102, "用户名或密码错误");
-
 
 
     public CodeMsg fillArgs(Object... args) {

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tck.party.mapper.OrgMapper">
+
+    <resultMap id="orgResultMap" type="Org">
+        <result column="id" property="orgId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="orgName"/>
+        <result column="address" property="orgAddress"/>
+    </resultMap>
+
+
+    <!--查找所有的组织-->
+    <select id="findOrgList" resultMap="orgResultMap">
+        SELECT
+        *
+        FROM
+        `p_organization`
+        WHERE 1=1
+        <if test="keyword!=null and keyword !=''">
+            AND name like CONCAT ('%', #{keyword},'%')
+        </if>
+    </select>
+
+    <!--查找某一组织下级的组织的数量-->
+    <select id="findChildrenCountOfOrg" resultType="java.lang.Integer">
+       SELECT
+        count(*)
+        FROM
+            `p_organization`
+        WHERE
+            parent_id = #{orgId}
+
+    </select>
+
+    <!--    插入一条组织记录-->
+    <insert id="insertOrg" useGeneratedKeys="true" keyProperty="orgId">
+        INSERT INTO p_organization ( parent_id, name, address)
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId!=null">
+                #{parentId},
+            </if>
+            <if test="orgName!=null and orgName!=''">
+                #{orgName},
+            </if>
+            <if test="orgAddress!=null and orgAddress!=''">
+                #{orgAddress},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    删除组织-->
+    <delete id="deleteOrg">
+          DELETE FROM p_organization WHERE id = #{orgId}
+    </delete>
+
+    <!--    更新组织信息-->
+    <update id="updateOrg">
+        update p_organization
+        <trim prefix="set" suffixOverrides=",">
+            <if test="parentId !=null">
+                parent_id = #{parentId},
+            </if>
+            <if test="orgName !=null and orgName !=''">
+                name = #{orgName},
+            </if>
+            <if test="orgAddress !=null and orgAddress !=''">
+                address = #{orgAddress},
+            </if>
+        </trim>
+        where
+        id = #{orgId}
+    </update>
+</mapper>

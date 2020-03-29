@@ -119,6 +119,15 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    public int updateUser(User user){
+        return userMapper.updateUser(user);
+    }
+
+    /**
      * 给用户添加角色
      *
      * @param userId

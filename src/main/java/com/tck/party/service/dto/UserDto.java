@@ -1,5 +1,6 @@
 package com.tck.party.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tck.party.entity.Org;
 import com.tck.party.entity.Role;
@@ -19,6 +20,8 @@ public class UserDto implements Serializable {
     @JsonIgnore
     private String password;
 
+    private String avatar;
+
     private String nickname;
 
     private Integer sex;
@@ -37,7 +40,9 @@ public class UserDto implements Serializable {
 
     private Role role;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT")
     private Date updateTime;
 }
